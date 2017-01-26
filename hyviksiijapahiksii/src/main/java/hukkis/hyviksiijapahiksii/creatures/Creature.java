@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hukkis.hyviksiijapahiksii;
+package hukkis.hyviksiijapahiksii.creatures;
 
 /**
  *
@@ -16,6 +16,7 @@ public class Creature {
     private int maxhp;
     private int attack;
     private int reach;
+    private int speed;
     private String status;
 
     public Creature(String type) {
@@ -30,12 +31,17 @@ public class Creature {
         }
     }
 
-    public void takeDamage(int hit) {
-        if (this.hp - hit <= 0) {
-            this.hp = 0;
-            this.status = "dead";
+    public boolean takeDamage(int hit) {
+        if (this.status.equals("dead")) {
+            return false;
         } else {
-            this.hp -= hit;
+            if (this.hp - hit <= 0) {
+                this.hp = 0;
+                this.status = "dead";
+            } else {
+                this.hp -= hit;
+            }
+            return true;
         }
 
     }
@@ -54,6 +60,14 @@ public class Creature {
 
     public int reach() {
         return this.reach;
+    }
+
+    public int speed() {
+        return this.speed;
+    }
+
+    public String status() {
+        return this.status;
     }
 
     public String toString() {

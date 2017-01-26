@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hukkis.hyviksiijapahiksii;
-
-import java.util.*;
+package hukkis.hyviksiijapahiksii.creatures;
 
 /**
  *
  * @author oolli
  */
-public class Main {
-
-    public static void main(String[] args) {
-
-    }
+public interface Unit {
+    
 }
