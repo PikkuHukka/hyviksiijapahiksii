@@ -5,16 +5,57 @@
  */
 package hukkis.hyviksiijapahiksii.creatures;
 
-import hukkis.hyviksiijapahiksii.creatures.Creature;
-
 /**
  *
  * @author oolli
  */
-public class Hero extends Creature {
+public class Hero extends Creature implements Unit {
+
+    private String name;
+    private int hp;
+    private int maxhp;
+    private int attack;
+    private int reach;
+    private int speed;
+    private String status;  
 
     public Hero(String type) {
         super(type);
+    }
+
+    @Override
+    public boolean takeDamage(int hit) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int hp() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int attack() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int maxhp() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int reach() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int speed() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String status() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

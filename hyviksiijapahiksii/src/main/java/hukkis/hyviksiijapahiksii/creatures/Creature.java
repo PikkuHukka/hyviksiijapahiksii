@@ -9,7 +9,7 @@ package hukkis.hyviksiijapahiksii.creatures;
  *
  * @author oolli
  */
-public class Creature {
+public class Creature implements Unit {
 
     private String name;
     private int hp;
@@ -40,6 +40,20 @@ public class Creature {
                 this.status = "dead";
             } else {
                 this.hp -= hit;
+            }
+            return true;
+        }
+
+    }
+    
+    public boolean heal(int heal) {
+        if (this.status.equals("dead")) {
+            return false;
+        } else {
+            if (this.hp + heal >= this.maxhp) {
+                this.hp = maxhp;
+            } else {
+                this.hp += heal;
             }
             return true;
         }

@@ -15,15 +15,15 @@ public class Combat {
     private boolean end;
 
     public Combat() {
-        this.end = false;
-        Battlemap map = new Battlemap(Party playerParty, );
+       // this.end = false;
+        //Battlemap map = new Battlemap(playerParty);
         
     }
 
     public void combatloop() {
-        while (this.end == false) {
+       //    while (this.end == false) {
 
-        }
+      //  }
         
 
     }

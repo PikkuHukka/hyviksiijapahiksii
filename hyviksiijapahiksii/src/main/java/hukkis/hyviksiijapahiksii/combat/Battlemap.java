@@ -15,11 +15,11 @@ import java.util.*;
 public class Battlemap {
 
     private Party playerParty;
-    private Party party2;
+    private Party enemyParty;
 
     public Battlemap(Party playerParty, Party p2) {
         this.playerParty = playerParty;
-        this.party2 = party2;
+        this.enemyParty = enemyParty;
 
     }
 
@@ -28,14 +28,14 @@ public class Battlemap {
     }
 
     public boolean endOfBattle() {
-        if (party1.wiped() == true) {
+        if (playerParty.wiped() == true) {
             return true;
-        }else if (party2.wiped() == true) {
+        } else if (enemyParty.wiped() == true) {
             return true;
         } else {
             return false;
         }
-        
+
     }
 
 }
