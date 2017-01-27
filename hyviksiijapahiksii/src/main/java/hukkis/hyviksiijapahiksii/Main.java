@@ -5,6 +5,7 @@
  */
 package hukkis.hyviksiijapahiksii;
 
+import hukkis.hyviksiijapahiksii.creatures.Creature;
 import hukkis.hyviksiijapahiksii.party.Party;
 import java.util.*;
 
@@ -15,7 +16,5 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        Party joukko = new Party();
-        joukko.testi();
     }
 }

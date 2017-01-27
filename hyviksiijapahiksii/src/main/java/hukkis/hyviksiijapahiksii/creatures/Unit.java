@@ -23,5 +23,7 @@ public interface Unit {
     public int speed();
 
     public String status();
+    @Override
+    public String toString();
 
 }

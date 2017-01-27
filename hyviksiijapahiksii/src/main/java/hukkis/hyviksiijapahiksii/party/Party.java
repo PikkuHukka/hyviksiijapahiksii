@@ -6,6 +6,8 @@
 package hukkis.hyviksiijapahiksii.party;
 
 import hukkis.hyviksiijapahiksii.creatures.Creature;
+import hukkis.hyviksiijapahiksii.creatures.EmptySlot;
+import hukkis.hyviksiijapahiksii.creatures.Unit;
 
 /**
  *
@@ -13,36 +15,42 @@ import hukkis.hyviksiijapahiksii.creatures.Creature;
  */
 public class Party {
 
-    private Creature backLeft;
-    private Creature backCenter;
-    private Creature backRight;
-    private Creature fronLeft;
-    private Creature frontCenter;
-    private Creature frontRight;
+    private Unit backLeft;
+    private Unit backCenter;
+    private Unit backRight;
+    private Unit frontLeft;
+    private Unit frontCenter;
+    private Unit frontRight;
 
     public Party() {
+        this.backLeft = new EmptySlot();
+        this.backCenter = new EmptySlot();
+        this.backRight = new EmptySlot();
+        this.frontLeft = new EmptySlot();
+        this.frontCenter = new EmptySlot();
+        this.frontRight = new EmptySlot();
 
     }
 
-    public void addCreature(Creature creature, String slot) {
+    public void addCreature(Creature Unit, String slot) {
         switch (slot) {
             case "backLeft":
-                this.backLeft = creature;
+                this.backLeft = Unit;
                 break;
             case "backCenter":
-                this.backCenter = creature;
+                this.backCenter = Unit;
                 break;
             case "backRight":
-                this.backCenter = creature;
+                this.backRight = Unit;
                 break;
             case "fronLeft":
-                this.backCenter = creature;
+                this.frontLeft = Unit;
                 break;
             case "frontCenter":
-                this.backCenter = creature;
+                this.frontCenter = Unit;
                 break;
             case "frontRight":
-                this.backCenter = creature;
+                this.frontRight = Unit;
                 break;
             default:
                 break;
@@ -52,41 +60,38 @@ public class Party {
     public void removeCreature(String slot) {
         switch (slot) {
             case "backLeft":
-                this.backLeft = null;
+                this.backLeft = new EmptySlot();
                 break;
             case "backCenter":
-                this.backLeft = null;
+                this.backCenter = new EmptySlot();
                 break;
             case "backRight":
-                this.backLeft = null;
+                this.backRight = new EmptySlot();
                 break;
             case "fronLeft":
-                this.backLeft = null;
+                this.frontLeft = new EmptySlot();
                 break;
             case "frontCenter":
-                this.backLeft = null;
+                this.frontCenter = new EmptySlot();
                 break;
             case "frontRight":
-                this.backLeft = null;
+                this.frontRight = new EmptySlot();
                 break;
             default:
                 break;
         }
     }
 
-    public Creature creature(String slot) {
+    public Unit creature(String slot) {
         switch (slot) {
             case "backLeft":
                 return this.backLeft;
-
             case "backCenter":
                 return this.backCenter;
-
             case "backRight":
                 return this.backRight;
-
             case "fronLeft":
-                return this.fronLeft;
+                return this.frontLeft;
             case "frontCenter":
                 return this.frontCenter;
             case "frontRight":
@@ -100,7 +105,7 @@ public class Party {
 
     public boolean wiped() {
 
-        if (backLeft.status().equals("alive") || backLeft == null) {
+        if (backLeft.status().equals("alive") || backLeft.status().equals("alive")) {
             return false;
         }
         if (backCenter.status().equals("alive") || backLeft == null) {
@@ -109,7 +114,7 @@ public class Party {
         if (backRight.status().equals("alive") || backLeft == null) {
             return false;
         }
-        if (fronLeft.status().equals("alive") || backLeft == null) {
+        if (frontLeft.status().equals("alive") || backLeft == null) {
             return false;
         }
         if (frontCenter.status().equals("alive") || backLeft == null) {

@@ -9,19 +9,7 @@ package hukkis.hyviksiijapahiksii.creatures;
  *
  * @author oolli
  */
-public class Hero extends Creature implements Unit {
-
-    private String name;
-    private int hp;
-    private int maxhp;
-    private int attack;
-    private int reach;
-    private int speed;
-    private String status;  
-
-    public Hero(String type) {
-        super(type);
-    }
+public class EmptySlot implements Unit{
 
     @Override
     public boolean takeDamage(int hit) {
@@ -59,7 +47,7 @@ public class Hero extends Creature implements Unit {
     }
     @Override
     public String toString() {
-        return this.name + " " + this.hp + "/" + this.maxhp + " :" + status;
+        return "empty";
     }
-
+    
 }
