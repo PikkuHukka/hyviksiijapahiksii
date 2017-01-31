@@ -19,20 +19,38 @@ public class Creature implements Unit {
     private int speed;
     private String status;
 
-    public Creature(String type) {
+    public Creature(String name) {
 
-        if (type.equals("Squire")) {
-            this.name = "Squire";
-            this.hp = 100;
-            this.maxhp = 100;
-            this.attack = 25;
-            this.reach = 1;
-            this.status = "alive";
+        switch (name) {
+            case "Squire":
+
+                this.maxhp = 100;
+                this.attack = 25;
+                this.reach = 1;
+                this.speed = 50;
+                break;
+            case "Archer":
+
+                this.maxhp = 50;
+                this.attack = 20;
+                this.reach = 2;
+                this.speed = 60;
+                break;
+            case "Apprentice":
+                
+                this.maxhp = 35;
+                this.attack = 15;
+                this.reach = 3;
+                this.speed = 30;
+                break;
         }
+        this.name = name;
+        this.hp = this.maxhp;
+        this.status = "alive";
     }
 
     public boolean takeDamage(int hit) {
-        if (this.status.equals("dead")) {
+        if (this.status.equals("dead") || this.status.equals("empty")) {
             return false;
         } else {
             if (this.hp - hit <= 0) {
@@ -45,9 +63,9 @@ public class Creature implements Unit {
         }
 
     }
-    
+
     public boolean heal(int heal) {
-        if (this.status.equals("dead")) {
+        if (this.status.equals("dead")|| this.status.equals("empty")) {
             return false;
         } else {
             if (this.hp + heal >= this.maxhp) {

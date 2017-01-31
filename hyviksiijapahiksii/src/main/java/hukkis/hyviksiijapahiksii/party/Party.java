@@ -32,25 +32,25 @@ public class Party {
 
     }
 
-    public void addCreature(Creature Unit, String slot) {
+    public void addCreature(Unit unit, String slot) {
         switch (slot) {
             case "backLeft":
-                this.backLeft = Unit;
+                this.backLeft = unit;
                 break;
             case "backCenter":
-                this.backCenter = Unit;
+                this.backCenter = unit;
                 break;
             case "backRight":
-                this.backRight = Unit;
+                this.backRight = unit;
                 break;
             case "fronLeft":
-                this.frontLeft = Unit;
+                this.frontLeft = unit;
                 break;
             case "frontCenter":
-                this.frontCenter = Unit;
+                this.frontCenter = unit;
                 break;
             case "frontRight":
-                this.frontRight = Unit;
+                this.frontRight = unit;
                 break;
             default:
                 break;
@@ -105,22 +105,22 @@ public class Party {
 
     public boolean wiped() {
 
-        if (backLeft.status().equals("alive") || backLeft.status().equals("alive")) {
+        if (backLeft.status().equals("alive")) {
             return false;
         }
-        if (backCenter.status().equals("alive") || backLeft == null) {
+        if (backCenter.status().equals("alive")) {
             return false;
         }
-        if (backRight.status().equals("alive") || backLeft == null) {
+        if (backRight.status().equals("alive")) {
             return false;
         }
-        if (frontLeft.status().equals("alive") || backLeft == null) {
+        if (frontLeft.status().equals("alive")) {
             return false;
         }
-        if (frontCenter.status().equals("alive") || backLeft == null) {
+        if (frontCenter.status().equals("alive")) {
             return false;
         }
-        if (frontRight.status().equals("alive") || backLeft == null) {
+        if (frontRight.status().equals("alive")) {
             return false;
         }
         return true;

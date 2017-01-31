@@ -16,5 +16,13 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+        Party playerParty = new Party();
+        Creature pete = new Creature("Squire");
+        playerParty.addCreature(pete, "frontCenter");
+        System.out.println(playerParty.creature("frontCenter").hp());
+        playerParty.creature("frontCenter").takeDamage(99);
+        System.out.println(playerParty.creature("frontCenter").hp());
+        System.out.println(playerParty.wiped());
+        System.out.println(playerParty.creature("frontRight"));
     }
 }

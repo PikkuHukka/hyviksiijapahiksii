@@ -9,16 +9,20 @@ package hukkis.hyviksiijapahiksii.creatures;
  *
  * @author oolli
  */
-public class EmptySlot implements Unit{
+public class EmptySlot implements Unit {
+    public EmptySlot(){
+        
+    }
 
     @Override
     public boolean takeDamage(int hit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Empty slot.");
+        return false;
     }
 
     @Override
     public int hp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return -1;
     }
 
     @Override
@@ -43,11 +47,12 @@ public class EmptySlot implements Unit{
 
     @Override
     public String status() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Empty";
     }
+
     @Override
     public String toString() {
-        return "empty";
+        return "Empty";
     }
-    
+
 }

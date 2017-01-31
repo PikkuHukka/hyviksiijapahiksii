@@ -5,6 +5,7 @@
  */
 package hukkis.hyviksiijapahiksii.combat;
 
+import hukkis.hyviksiijapahiksii.party.Party;
 
 /**
  *
@@ -13,18 +14,26 @@ package hukkis.hyviksiijapahiksii.combat;
 public class Combat {
 
     private boolean end;
+    private Party player;
 
-    public Combat() {
-       // this.end = false;
-        //Battlemap map = new Battlemap(playerParty);
+    public Combat(Party player) {
+        this.end = false;
+        this.player = player;
+        Party enemyParty = new Party();
+        Battlemap map = new Battlemap(playerParty);
         
     }
 
     public void combatloop() {
-       //    while (this.end == false) {
+        while (this.end == false) {
 
-      //  }
-        
+            if (this.player.wiped() == true) {
+                System.out.println("You won!");
+                break;
+            }// else if(this.enemy.wiped() == true) {
+               /// System.out.println("You los");
+            //}
+        }
 
     }
 }
