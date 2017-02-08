@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package partytest;
+package hukkis.hyviksiijapahiksii.party;
 
 import hukkis.hyviksiijapahiksii.creatures.Creature;
 import hukkis.hyviksiijapahiksii.party.Party;
@@ -48,7 +48,7 @@ public class PartyTest {
     public void emptySlotInParty() {
         Party joukko = new Party();
 
-        assertEquals("empty", joukko.creature("backLeft").toString());
+        assertEquals("Empty", joukko.creature(0).toString());
 
     }
 
@@ -56,8 +56,8 @@ public class PartyTest {
     public void partyAddCreature() {
         Party joukko = new Party();
         Creature jatka = new Creature("Squire");
-        joukko.addCreature(jatka, "backLeft");
-        assertEquals("Squire 100/100 :alive", joukko.creature("backLeft").toString());
+        joukko.addCreature(jatka, 0);
+        assertEquals("Squire 100/100 :alive", joukko.creature(0).toString());
 
     }
 
@@ -65,10 +65,20 @@ public class PartyTest {
     public void partyRemoveCreature() {
         Party joukko = new Party();
         Creature jatka = new Creature("Squire");
-        joukko.addCreature(jatka, "backLeft");
-        assertEquals("Squire 100/100 :alive", joukko.creature("backLeft").toString());
-        joukko.removeCreature("backLeft");
-        assertEquals("empty", joukko.creature("backLeft").toString());
+        joukko.addCreature(jatka, 0);
+        assertEquals("Squire 100/100 :alive", joukko.creature(0).toString());
+        joukko.removeCreature(0);
+        assertEquals("Empty", joukko.creature(0).toString());
+
+    }
+    @Test
+    public void partyWiped() {
+        Party joukko = new Party();
+        Creature jatka = new Creature("Apprentice");
+        joukko.addCreature(jatka, 0);
+        assertEquals(false, joukko.wiped());
+        joukko.creature(0).takeDamage(50);
+        assertEquals(true, joukko.wiped());
 
     }
 

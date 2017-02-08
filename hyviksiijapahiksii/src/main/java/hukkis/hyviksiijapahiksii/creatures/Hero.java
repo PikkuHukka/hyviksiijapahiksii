@@ -17,15 +17,17 @@ public class Hero extends Creature implements Unit {
     private int attack;
     private int reach;
     private int speed;
-    private String status;  
+    private String status;
 
     public Hero(String type) {
         super(type);
     }
 
+    
     @Override
-    public boolean takeDamage(int hit) {
+    public void takeDamage(int hit) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     @Override
@@ -57,9 +59,15 @@ public class Hero extends Creature implements Unit {
     public String status() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     @Override
     public String toString() {
         return this.name + " " + this.hp + "/" + this.maxhp + " :" + status;
+    }
+
+    
+    public int compareTo(Unit t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

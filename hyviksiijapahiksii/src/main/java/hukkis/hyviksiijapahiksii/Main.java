@@ -5,9 +5,13 @@
  */
 package hukkis.hyviksiijapahiksii;
 
+import hukkis.hyviksiijapahiksii.combat.Combat;
 import hukkis.hyviksiijapahiksii.creatures.Creature;
+import hukkis.hyviksiijapahiksii.maingame.GameLogic;
 import hukkis.hyviksiijapahiksii.party.Party;
-import java.util.*;
+import java.util.Random;
+
+import java.util.Scanner;
 
 /**
  *
@@ -16,13 +20,13 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        Party playerParty = new Party();
-        Creature pete = new Creature("Squire");
-        playerParty.addCreature(pete, "frontCenter");
-        System.out.println(playerParty.creature("frontCenter").hp());
-        playerParty.creature("frontCenter").takeDamage(99);
-        System.out.println(playerParty.creature("frontCenter").hp());
-        System.out.println(playerParty.wiped());
-        System.out.println(playerParty.creature("frontRight"));
+        Scanner scan = new Scanner(System.in);
+        Random rand = new Random();
+
+       GameLogic peli = new GameLogic(scan,rand);
+       peli.pelaaPeli();
+      
+
     }
+
 }

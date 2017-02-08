@@ -15,87 +15,85 @@ import hukkis.hyviksiijapahiksii.creatures.Unit;
  */
 public class Party {
 
-    private Unit backLeft;
-    private Unit backCenter;
-    private Unit backRight;
-    private Unit frontLeft;
-    private Unit frontCenter;
-    private Unit frontRight;
+    private Unit[] party;
 
     public Party() {
-        this.backLeft = new EmptySlot();
-        this.backCenter = new EmptySlot();
-        this.backRight = new EmptySlot();
-        this.frontLeft = new EmptySlot();
-        this.frontCenter = new EmptySlot();
-        this.frontRight = new EmptySlot();
+        this.party = new Unit[6];
+        for (int i = 0; i < 6; i++) {
+            this.party[i] = new EmptySlot();
+        }
 
     }
 
-    public void addCreature(Unit unit, String slot) {
+    //Lisää creaturen slottiin
+    public void addCreature(Unit unit, int slot) {
         switch (slot) {
-            case "backLeft":
-                this.backLeft = unit;
+            case 0:
+                this.party[0] = unit;
                 break;
-            case "backCenter":
-                this.backCenter = unit;
+            case 1:
+                this.party[1] = unit;
                 break;
-            case "backRight":
-                this.backRight = unit;
+            case 2:
+                this.party[2] = unit;
                 break;
-            case "fronLeft":
-                this.frontLeft = unit;
+            case 3:
+                this.party[3] = unit;
                 break;
-            case "frontCenter":
-                this.frontCenter = unit;
+            case 4:
+                this.party[4] = unit;
                 break;
-            case "frontRight":
-                this.frontRight = unit;
+            case 5:
+                this.party[5] = unit;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    //Poistaa creaturen slotista x
+    public void removeCreature(int slot) {
+        switch (slot) {
+            case 0:
+                this.party[0] = new EmptySlot();
+                break;
+            case 1:
+                this.party[1] = new EmptySlot();
+                break;
+            case 2:
+                this.party[2] = new EmptySlot();
+                break;
+            case 3:
+                this.party[3] = new EmptySlot();
+                break;
+            case 4:
+                this.party[4] = new EmptySlot();
+                break;
+            case 5:
+                this.party[5] = new EmptySlot();
                 break;
             default:
                 break;
         }
     }
 
-    public void removeCreature(String slot) {
+    //palauttaa Unitin slotista x
+    public Unit creature(int slot) {
         switch (slot) {
-            case "backLeft":
-                this.backLeft = new EmptySlot();
-                break;
-            case "backCenter":
-                this.backCenter = new EmptySlot();
-                break;
-            case "backRight":
-                this.backRight = new EmptySlot();
-                break;
-            case "fronLeft":
-                this.frontLeft = new EmptySlot();
-                break;
-            case "frontCenter":
-                this.frontCenter = new EmptySlot();
-                break;
-            case "frontRight":
-                this.frontRight = new EmptySlot();
-                break;
-            default:
-                break;
-        }
-    }
+            case 0:
+                return this.party[0];
+            case 1:
+                return this.party[1];
+            case 2:
+                return this.party[2];
+            case 3:
+                return this.party[3];
+            case 4:
+                return this.party[4];
+            case 5:
+                return this.party[5];
 
-    public Unit creature(String slot) {
-        switch (slot) {
-            case "backLeft":
-                return this.backLeft;
-            case "backCenter":
-                return this.backCenter;
-            case "backRight":
-                return this.backRight;
-            case "fronLeft":
-                return this.frontLeft;
-            case "frontCenter":
-                return this.frontCenter;
-            case "frontRight":
-                return this.frontRight;
             default:
                 return null;
 
@@ -103,27 +101,22 @@ public class Party {
 
     }
 
+    //tarkistaa onko joukossa ketään hengissä
     public boolean wiped() {
 
-        if (backLeft.status().equals("alive")) {
-            return false;
-        }
-        if (backCenter.status().equals("alive")) {
-            return false;
-        }
-        if (backRight.status().equals("alive")) {
-            return false;
-        }
-        if (frontLeft.status().equals("alive")) {
-            return false;
-        }
-        if (frontCenter.status().equals("alive")) {
-            return false;
-        }
-        if (frontRight.status().equals("alive")) {
-            return false;
+        for (int i = 0; i < 5; i++) {
+            if (party[i].status().equals("alive")) {
+                return false;
+            }
+
         }
         return true;
+
     }
 
+    public void printTeam() {
+        for (int i = 0; i < this.party.length; i++) {
+            System.out.println("Target " + i + ". " + this.party[i].toString());
+        }
+    }
 }

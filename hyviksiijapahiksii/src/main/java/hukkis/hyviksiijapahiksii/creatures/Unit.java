@@ -11,7 +11,7 @@ package hukkis.hyviksiijapahiksii.creatures;
  */
 public interface Unit {
 
-    public boolean takeDamage(int hit);
+    public void takeDamage(int hit);
 
     public int hp();
 
@@ -21,9 +21,11 @@ public interface Unit {
 
     public int reach(); 
     public int speed();
-
+    
     public String status();
     @Override
     public String toString();
+    
+    
 
 }

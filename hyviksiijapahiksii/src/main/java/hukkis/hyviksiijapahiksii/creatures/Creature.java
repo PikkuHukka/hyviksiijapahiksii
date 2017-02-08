@@ -5,11 +5,13 @@
  */
 package hukkis.hyviksiijapahiksii.creatures;
 
+import java.util.Random;
+
 /**
  *
  * @author oolli
  */
-public class Creature implements Unit {
+public class Creature implements Unit, Comparable<Unit> {
 
     private String name;
     private int hp;
@@ -18,6 +20,7 @@ public class Creature implements Unit {
     private int reach;
     private int speed;
     private String status;
+    Random rand;
 
     public Creature(String name) {
 
@@ -37,7 +40,7 @@ public class Creature implements Unit {
                 this.speed = 60;
                 break;
             case "Apprentice":
-                
+
                 this.maxhp = 35;
                 this.attack = 15;
                 this.reach = 3;
@@ -47,25 +50,22 @@ public class Creature implements Unit {
         this.name = name;
         this.hp = this.maxhp;
         this.status = "alive";
+
     }
 
-    public boolean takeDamage(int hit) {
-        if (this.status.equals("dead") || this.status.equals("empty")) {
-            return false;
+    public void takeDamage(int hit) {
+
+        if (this.hp - hit <= 0) {
+            this.hp = 0;
+            this.status = "dead";
         } else {
-            if (this.hp - hit <= 0) {
-                this.hp = 0;
-                this.status = "dead";
-            } else {
-                this.hp -= hit;
-            }
-            return true;
+            this.hp -= hit;
         }
 
     }
 
     public boolean heal(int heal) {
-        if (this.status.equals("dead")|| this.status.equals("empty")) {
+        if (this.status.equals("dead") || this.status.equals("empty")) {
             return false;
         } else {
             if (this.hp + heal >= this.maxhp) {
@@ -105,4 +105,12 @@ public class Creature implements Unit {
     public String toString() {
         return this.name + " " + this.hp + "/" + this.maxhp + " :" + status;
     }
+
+    @Override
+    public int compareTo(Unit t) {
+        int firstSpeed = this.speed + this.rand.nextInt(10);
+        int secondSpeed = t.speed() + this.rand.nextInt(10);
+        return firstSpeed - secondSpeed;
+    }
+
 }

@@ -9,15 +9,17 @@ package hukkis.hyviksiijapahiksii.creatures;
  *
  * @author oolli
  */
-public class EmptySlot implements Unit {
-    public EmptySlot(){
-        
+public class EmptySlot implements Unit, Comparable<Unit> {
+
+    public EmptySlot() {
+
     }
 
     @Override
-    public boolean takeDamage(int hit) {
+    //Empty slot ei voi ottaa damagea
+    public void takeDamage(int hit) {
         System.out.println("Empty slot.");
-        return false;
+
     }
 
     @Override
@@ -42,7 +44,7 @@ public class EmptySlot implements Unit {
 
     @Override
     public int speed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return - 100;
     }
 
     @Override
@@ -53,6 +55,11 @@ public class EmptySlot implements Unit {
     @Override
     public String toString() {
         return "Empty";
+    }
+
+    @Override
+    public int compareTo(Unit t) {
+        return -100;
     }
 
 }

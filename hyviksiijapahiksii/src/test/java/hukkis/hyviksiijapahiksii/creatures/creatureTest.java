@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package creaturestest;
+package hukkis.hyviksiijapahiksii.creatures;
 
 import hukkis.hyviksiijapahiksii.creatures.Creature;
 import org.junit.After;
