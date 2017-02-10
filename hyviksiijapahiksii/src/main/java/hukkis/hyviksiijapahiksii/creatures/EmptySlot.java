@@ -22,6 +22,10 @@ public class EmptySlot implements Unit, Comparable<Unit> {
 
     }
 
+    public String name() {
+        return "Empty";
+    }
+
     @Override
     public int hp() {
         return -1;
@@ -29,22 +33,22 @@ public class EmptySlot implements Unit, Comparable<Unit> {
 
     @Override
     public int attack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return -1;
     }
 
     @Override
     public int maxhp() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return -1;
     }
 
     @Override
     public int reach() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return -1;
     }
 
     @Override
     public int speed() {
-        return - 100;
+        return -1;
     }
 
     @Override
@@ -60,6 +64,11 @@ public class EmptySlot implements Unit, Comparable<Unit> {
     @Override
     public int compareTo(Unit t) {
         return -100;
+    }
+
+    @Override
+    public boolean friendly() {
+        return false;
     }
 
 }

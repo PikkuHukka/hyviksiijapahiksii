@@ -23,9 +23,8 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
 
-       GameLogic peli = new GameLogic(scan,rand);
-       peli.pelaaPeli();
-      
+        GameLogic peli = new GameLogic(scan, rand);
+        peli.pelaaPeli();
 
     }
 

@@ -19,13 +19,17 @@ public interface Unit {
 
     public int maxhp();
 
-    public int reach(); 
+    public int reach();
+
     public int speed();
-    
+
     public String status();
+
     @Override
     public String toString();
-    
-    
+
+    public boolean friendly();
+
+    public String name();
 
 }

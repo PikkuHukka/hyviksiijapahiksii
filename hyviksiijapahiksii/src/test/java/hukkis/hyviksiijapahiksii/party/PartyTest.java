@@ -46,7 +46,7 @@ public class PartyTest {
     // public void hello() {}
     @Test
     public void emptySlotInParty() {
-        Party joukko = new Party();
+        Party joukko = new Party(true);
 
         assertEquals("Empty", joukko.creature(0).toString());
 
@@ -54,31 +54,34 @@ public class PartyTest {
 
     @Test
     public void partyAddCreature() {
-        Party joukko = new Party();
-        Creature jatka = new Creature("Squire");
+        Party joukko = new Party(true);
+        Creature jatka = new Creature("Squire", true);
         joukko.addCreature(jatka, 0);
-        assertEquals("Squire 100/100 :alive", joukko.creature(0).toString());
+        assertEquals("Squire 100/100 : alive", joukko.creature(0).toString());
 
     }
 
     @Test
     public void partyRemoveCreature() {
-        Party joukko = new Party();
-        Creature jatka = new Creature("Squire");
+        Party joukko = new Party(false);
+        Creature jatka = new Creature("Squire", false);
         joukko.addCreature(jatka, 0);
-        assertEquals("Squire 100/100 :alive", joukko.creature(0).toString());
+        assertEquals("Squire 100/100 : alive", joukko.creature(0).toString());
         joukko.removeCreature(0);
         assertEquals("Empty", joukko.creature(0).toString());
+        assertEquals(false, joukko.player());
 
     }
+
     @Test
     public void partyWiped() {
-        Party joukko = new Party();
-        Creature jatka = new Creature("Apprentice");
+        Party joukko = new Party(true);
+        Creature jatka = new Creature("Apprentice", true);
         joukko.addCreature(jatka, 0);
         assertEquals(false, joukko.wiped());
         joukko.creature(0).takeDamage(50);
         assertEquals(true, joukko.wiped());
+        assertEquals(true, joukko.player());
 
     }
 

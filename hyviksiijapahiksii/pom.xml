@@ -51,10 +51,12 @@
                     <targetClasses>
                         <param>hukkis.hyviksiijapahiksii.combat.*</param>
                         <param>hukkis.hyviksiijapahiksii.creatures.*</param>
+                        <param>hukkis.hyviksiijapahiksii.party.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>hukkis.hyviksiijapahiksii.combat.*</param>
                         <param>hukkis.hyviksiijapahiksii.creatures.*</param>
+                        <param>hukkis.hyviksiijapahiksii.party.*</param>
                     </targetTests>
                 </configuration>
                 

@@ -26,27 +26,25 @@ public class GameLogic {
 
     public void pelaaPeli() {
 
-        
-        Party player = new Party();
-        Party enemy = new Party();
-        Party enemy2 = new Party();
-        Creature squire1 = new Creature("Archer");
-        Creature squire2 = new Creature("Squire");
-        Creature squire3 = new Creature("Squire");
-        Creature squire4 = new Creature("Squire");
-        Creature squire5 = new Creature("Squire");
-        Creature squire6 = new Creature("Squire");
-        player.addCreature(squire1, 0);
-        player.addCreature(squire2, 1);
-        player.addCreature(squire3, 2);
+        Party player = new Party(true);
+        Party enemy = new Party(false);
+        Party enemy2 = new Party(false);
+        Creature squire1 = new Creature("Squire", true);
+        Creature squire2 = new Creature("Squire", true);
+        Creature squire3 = new Creature("Squire", true);
+        Creature squire4 = new Creature("Squire", false);
+        Creature squire5 = new Creature("Squire", false);
+        Creature squire6 = new Creature("Squire", false);
+        player.addCreature(squire1, 5);
+        //  player.addCreature(squire2, 1);
+        // player.addCreature(squire3, 2);
         enemy.addCreature(squire4, 0);
-  
+        enemy2.addCreature(squire5, 0);
+        enemy2.addCreature(squire6, 1);
 
-        Combat taistelu = new Combat(player, enemy, this.rand, this.scan);
-        taistelu.combatLoop();
-        
-        //Combat taistelu2 = new Combat(player, enemy2, this.rand, this.scan);
-      //  taistelu2.combatLoop();
-         
+        Combat taistelu = new Combat(this.rand, this.scan);
+        taistelu.newCombat(player, enemy);
+        //    taistelu.newCombat(player,enemy2);
+
     }
 }

@@ -14,17 +14,18 @@ import java.util.Random;
  */
 public class CompareSpeed implements Comparator<Unit> {
 
-    private Random rand;
+    private final Random rand;
 
     public CompareSpeed(Random rand) {
         this.rand = rand;
+
     }
 
     @Override
     public int compare(Unit a, Unit b) {
         int firstSpeed = a.speed() + this.rand.nextInt(10);
         int secondSpeed = b.speed() + this.rand.nextInt(10);
-        return secondSpeed -firstSpeed;
+        return secondSpeed - firstSpeed;
     }
 
 }

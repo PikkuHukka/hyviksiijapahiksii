@@ -20,9 +20,10 @@ public class Creature implements Unit, Comparable<Unit> {
     private int reach;
     private int speed;
     private String status;
-    Random rand;
+    private Random rand;
+    private boolean friendly;
 
-    public Creature(String name) {
+    public Creature(String name, boolean friendly) {
 
         switch (name) {
             case "Squire":
@@ -30,7 +31,8 @@ public class Creature implements Unit, Comparable<Unit> {
                 this.maxhp = 100;
                 this.attack = 25;
                 this.reach = 1;
-                this.speed = 50;
+                this.speed = 40;
+
                 break;
             case "Archer":
 
@@ -50,6 +52,7 @@ public class Creature implements Unit, Comparable<Unit> {
         this.name = name;
         this.hp = this.maxhp;
         this.status = "alive";
+        this.friendly = friendly;
 
     }
 
@@ -78,6 +81,10 @@ public class Creature implements Unit, Comparable<Unit> {
 
     }
 
+    public String name() {
+        return this.name;
+    }
+
     public int hp() {
         return this.hp;
     }
@@ -103,7 +110,11 @@ public class Creature implements Unit, Comparable<Unit> {
     }
 
     public String toString() {
-        return this.name + " " + this.hp + "/" + this.maxhp + " :" + status;
+        return this.name + " " + this.hp + "/" + this.maxhp + " : " + status;
+    }
+
+    public boolean friendly() {
+        return this.friendly;
     }
 
     @Override

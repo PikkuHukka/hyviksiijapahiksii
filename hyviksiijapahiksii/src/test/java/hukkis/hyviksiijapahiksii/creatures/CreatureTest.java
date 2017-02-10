@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author oolli
  */
-public class creatureTest {
+public class CreatureTest {
 
-    public creatureTest() {
+    public CreatureTest() {
     }
 
     @BeforeClass
@@ -44,8 +44,8 @@ public class creatureTest {
     // @Test
     // public void hello() {}
     @Test
-    public void takesDamageCorrectly() {
-        Creature squire = new Creature("Squire");
+    public void takesDamage() {
+        Creature squire = new Creature("Squire", true);
         squire.takeDamage(50);
         assertEquals(50, squire.hp());
         assertEquals("alive", squire.status());
@@ -57,7 +57,7 @@ public class creatureTest {
 
     @Test
     public void deadCannotTakeDamage() {
-        Creature squire = new Creature("Squire");
+        Creature squire = new Creature("Apprentice", true);
         squire.takeDamage(100);
         squire.takeDamage(100);
         assertEquals(0, squire.hp());
@@ -65,22 +65,42 @@ public class creatureTest {
     }
 
     @Test
-    public void healingHealsCorrectly() {
-        Creature squire = new Creature("Squire");
-        squire.takeDamage(70);
+    public void healing() {
+        Creature squire = new Creature("Archer", true);
+        squire.takeDamage(20);
+        squire.heal(10);
+        assertEquals(40, squire.hp());
         squire.heal(60);
-        assertEquals(90, squire.hp());
-        squire.heal(60);
-        assertEquals(100, squire.hp());
+        assertEquals(50, squire.hp());
 
     }
 
     @Test
     public void deadCannotBeHealed() {
-        Creature squire = new Creature("Squire");
+        Creature squire = new Creature("Squire", true);
         squire.takeDamage(100);
         squire.heal(60);
         assertEquals(0, squire.hp());
         assertEquals("dead", squire.status());
+    }
+
+    @Test
+    public void returnValues() {
+        Creature squire = new Creature("Squire", true);
+        assertEquals(100, squire.maxhp());
+        assertEquals(1, squire.reach());
+        assertEquals("Squire", squire.name());
+        assertEquals(25, squire.attack());
+        assertEquals(40, squire.speed());
+        assertEquals(true, squire.friendly());
+
+    }
+
+    @Test
+    public void print() {
+        Creature squire = new Creature("Squire", false);
+        squire.takeDamage(50);
+        assertEquals(false, squire.friendly());
+        assertEquals("Squire 50/100 : alive", squire.toString());
     }
 }
