@@ -3,3 +3,5 @@ Hyviksii ja pahiksii on vuoropohjainen taistelupeli, jossa molemmilla puolilla o
 Projektin ensimmäinen ja tärkein etappi on saada taistelu toimivaksi, jonka jälkeen lisään enemmän
 hahmoluokkia ja tekoälyä vastustajalle. Jos aikaa jää niin laajennan hahmoille lisää taisteluun
 vaikuttavia muuttujia.
+
+![Luokkakaavio](https://github.com/PikkuHukka/hyviksiijapahiksii/blob/master/dokumentaatio/MaarittelyvaiheenLuokkakaavio.png)

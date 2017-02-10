@@ -4,4 +4,4 @@ Projektin ensimm채inen ja t채rkein etappi on saada taistelu toimivaksi, jonka j�
 hahmoluokkia ja teko채ly채 vastustajalle. Jos aikaa j채채 niin laajennan hahmoille lis채채 taisteluun
 vaikuttavia muuttujia.
 
-![Luokkakaavio](luokkakaavio.png)
+![Luokkakaavio](https://github.com/PikkuHukka/hyviksiijapahiksii/blob/master/dokumentaatio/MaarittelyvaiheenLuokkakaavio.png)
