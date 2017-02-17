@@ -12,6 +12,7 @@ import hukkis.hyviksiijapahiksii.party.Party;
 import java.util.*;
 
 /**
+ * Combat logic unit.
  *
  * @author oolli
  */
@@ -20,11 +21,16 @@ public class Combat {
     private boolean end;
     private Party player;
 
-    private Random rand;
+    private final Random rand;
     private Party enemy;
-    private Scanner scan;
-    private ArrayList<Unit> turns;
+    private final Scanner scan;
 
+    /**
+     * Starts a new combat with player party and enemy party.
+     *
+     * @param scan adds scanner to the class.
+     * @param rand adds random to the class.
+     */
     public Combat(Random rand, Scanner scan) {
         this.end = false;
         this.rand = rand;
@@ -32,6 +38,13 @@ public class Combat {
 
     }
 
+    /**
+     * Starts a new combat with and enemy.
+     *
+     * @param player party controlled by the player.
+     * @param enemy party controlled by the computer.
+     *
+     */
     public void newCombat(Party player, Party enemy) {
         this.player = player;
         this.enemy = enemy;
@@ -42,8 +55,14 @@ public class Combat {
             System.out.println("Battle lost!");
         }
     }
-//Parametrejä ei tarvitsisi, mutta ne helpottavat testaamista
 
+    /**
+     * Uses unit compare speed class to determine the turns for each creature.
+     *
+     * @param player party.
+     * @param enemy party.
+     * @return the new list that contains both sorted by speed.
+     */
     public List determineTurns(Party player, Party enemy) {
         List turnList = new ArrayList<>();
         for (int i = 0; i <= 5; i++) {
@@ -58,6 +77,10 @@ public class Combat {
 
     }
 
+    /** This loop will go on until either the player team, or the enemy team is dead.
+     * 
+     *
+     */
     public void combatLoop() {
 
         while (this.end == false) {
@@ -80,6 +103,11 @@ public class Combat {
 
     }
 
+    /**
+     * Players creature has the attack turn.
+     *
+     * @param unit Gives the turn to an enemy unit.
+     */
     public void playerTurn(Unit unit) {
         //Player party hyökkää
 
@@ -114,7 +142,11 @@ public class Combat {
 
     }
 
-//Tekoäly hyökkää
+    /**
+     * Enemy creature turn.
+     *
+     * @param unit Gives the turn to an enemy unit.
+     */
     private void enemyTurn(Unit unit) {
 
         if (endCombat() == true) {
@@ -132,7 +164,9 @@ public class Combat {
                     int extraDamage = unit.attack() + this.rand.nextInt(6);
                     System.out.println("Enemy " + unit.name() + " attacked and dealt " + extraDamage + " damage");
                     this.player.creature(target).takeDamage(extraDamage);
-
+                    if (unit.reach() == 1) {
+                        break;
+                    }
                 }
 
             }
@@ -141,6 +175,11 @@ public class Combat {
 
     }
 
+    /**
+     * Checks if combat needs to be ended.
+     *
+     * @return true if it does.
+     */
     public boolean endCombat() {
         if (this.player.wiped() == true) {
             this.end = true;

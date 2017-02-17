@@ -8,11 +8,11 @@ package hukkis.hyviksiijapahiksii.creatures;
 import java.util.Random;
 
 /**
- * Class used for a normal creature either friend or foe.
+ * A hero unit controlled by the player.
  *
  * @author oolli
  */
-public class Creature implements Unit, Comparable<Unit> {
+public class Hero implements Unit, Comparable<Unit> {
 
     private final String name;
     private int hp;
@@ -22,38 +22,39 @@ public class Creature implements Unit, Comparable<Unit> {
     private int speed;
     private String status;
     private Random rand;
-    private final boolean friendly;
 
     /**
-     * Constructor for creature.
+     * Hero is a unique unit used by the player. Can be considered the leader of
+     * the player party.
      *
-     * @param name name of the creature. This isn't unique and determines the
-     * type
-     *
-     * @param friendly if the creature is controlled by player true, else false.
+     * @param name is the unique hero name.
+     * @param type determines hero type.
      */
-    public Creature(String name, boolean friendly) {
+    public Hero(String name, String type) {
 
-        switch (name) {
-            case "Squire":
+        switch (type) {
+            //Warrior
+            case "Warrior":
 
-                this.maxhp = 100;
-                this.attack = 25;
+                this.maxhp = 150;
+                this.attack = 50;
                 this.reach = 1;
-                this.speed = 40;
+                this.speed = 50;
 
                 break;
-            case "Archer":
+            //Ranger
+            case "Ranger":
 
-                this.maxhp = 50;
-                this.attack = 20;
+                this.maxhp = 90;
+                this.attack = 40;
                 this.reach = 1;
                 this.speed = 60;
                 break;
-            case "Apprentice":
+            //Wizard
+            case "Wizard":
 
-                this.maxhp = 50;
-                this.attack = 15;
+                this.maxhp = 65;
+                this.attack = 25;
                 this.reach = 6;
                 this.speed = 30;
                 break;
@@ -61,7 +62,6 @@ public class Creature implements Unit, Comparable<Unit> {
         this.name = name;
         this.hp = this.maxhp;
         this.status = "alive";
-        this.friendly = friendly;
 
     }
 
@@ -88,19 +88,19 @@ public class Creature implements Unit, Comparable<Unit> {
      * @param heal amount of healing taken.
      */
     public void heal(int heal) {
-
-        if (this.hp + heal >= this.maxhp) {
-            this.hp = maxhp;
-        } else {
-            this.hp += heal;
+        if (!this.status.equals("dead") && !this.status.equals("empty")) {
+            if (this.hp + heal >= this.maxhp) {
+                this.hp = maxhp;
+            } else {
+                this.hp += heal;
+            }
         }
-
     }
 
     /**
-     * Returns the name of the creature.
+     * Returns the name of the hero.
      *
-     * @return the name of the creature.
+     * @return name.
      */
     @Override
     public String name() {
@@ -128,9 +128,9 @@ public class Creature implements Unit, Comparable<Unit> {
     }
 
     /**
-     * Returns the maximum health that the creature can have.
+     * Returns the maximum health that the creature can have value.
      *
-     * @return maxHP value
+     * @return maxHP value.
      */
     @Override
     public int maxhp() {
@@ -138,7 +138,7 @@ public class Creature implements Unit, Comparable<Unit> {
     }
 
     /**
-     * Returns the reach of the creature. 1 / 6.
+     * Returns the reach of the hero. 1 / 6.
      *
      * @return reach value.
      */
@@ -148,7 +148,7 @@ public class Creature implements Unit, Comparable<Unit> {
     }
 
     /**
-     * Returns the speed of the creature.
+     * Returns the speed of the hero.
      *
      * @return speed value.
      */
@@ -158,9 +158,9 @@ public class Creature implements Unit, Comparable<Unit> {
     }
 
     /**
-     * Tells you whether the creature is alive or dead.
+     * Tells you whether the hero is alive or dead.
      *
-     * @return status dead/alive.
+     * @return status value. alive / dead
      */
     @Override
     public String status() {
@@ -174,20 +174,21 @@ public class Creature implements Unit, Comparable<Unit> {
 
     /**
      * Helps to keep track of if this creature is part of the your group or one
-     * of the enemies.
+     * of the enemies This value is always true, since hero units are all
+     * friendly.
      *
-     * @return boolean friendly.
+     * @return true
      */
     @Override
     public boolean friendly() {
-        return this.friendly;
+        return true;
     }
 
     /**
-     * Compares the speeds of the units. Helps to determine who should attack
-     * first.
+     * Compares the speeds of the units.
      *
-     * @param t comparable unit.
+     * @param t for comparing the speed.
+     * @return the compared speed.
      */
     @Override
     public int compareTo(Unit t) {
@@ -195,5 +196,4 @@ public class Creature implements Unit, Comparable<Unit> {
         int secondSpeed = t.speed() + this.rand.nextInt(10);
         return firstSpeed - secondSpeed;
     }
-
 }

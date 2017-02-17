@@ -5,36 +5,51 @@
  */
 package hukkis.hyviksiijapahiksii.party;
 
-import hukkis.hyviksiijapahiksii.creatures.Creature;
 import hukkis.hyviksiijapahiksii.creatures.EmptySlot;
 import hukkis.hyviksiijapahiksii.creatures.Unit;
 
 /**
+ * Party contains 6 slots for different units. Can be managed outside combat and
+ * used to battle during combat
  *
  * @author oolli
  */
 public class Party {
 
-    private Unit[] party;
-    private boolean player;
+    private final Unit[] party;
+    private final boolean player;
 
+    /**
+     * Creates a new party.
+     *
+     * @param player if the party is controlled by player true, else false
+     */
     public Party(boolean player) {
         this.player = player;
         this.party = new Unit[6];
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i <= 5; i++) {
             this.party[i] = new EmptySlot();
         }
 
     }
 
-    //Lisää creaturen slottiin
+    /**
+     * Add a new creature to the party.
+     *
+     * @param unit the unit that will be added to a party
+     * @param slot the slot, this new unit will be added to
+     */
     public void addCreature(Unit unit, int slot) {
         if (slot <= 5) {
             this.party[slot] = unit;
         }
     }
 
-//Poistaa creaturen slotista x
+    /**
+     * Remove the unit from a specific slot.
+     *
+     * @param slot remove a the creature from this slot
+     */
     public void removeCreature(int slot) {
         if (slot <= 5) {
             this.party[slot] = new EmptySlot();
@@ -42,14 +57,24 @@ public class Party {
         }
     }
 
-//palauttaa Unitin slotista x
+    /**
+     * Returns the unit from a specific slot.
+     *
+     * @param slot which slot?
+     * @return return the unit
+     */
     public Unit creature(int slot) {
 
         return this.party[slot];
 
     }
 
-    //tarkistaa onko joukossa ketään hengissä
+    /**
+     * If all unit slots in the party are either dead or wiped, return true.
+     *
+     * @return returns true if party is wiped, false if there's still creature
+     * alive
+     */
     public boolean wiped() {
 
         for (int i = 0; i <= 5; i++) {
@@ -62,6 +87,11 @@ public class Party {
 
     }
 
+    /**
+     * Prints the team. This method isn't required but it helps to keep track of
+     * the combat
+     *
+     */
     public void printTeam() {
         for (int i = 0; i < this.party.length; i++) {
             System.out.println("Target " + i + ". " + this.party[i].toString());
@@ -69,6 +99,11 @@ public class Party {
 
     }
 
+    /**
+     * Returns the party alignment, whether it is controlled by player or the AI.
+     *
+     * @return boolean true or false
+     */
     public boolean player() {
         return this.player;
     }

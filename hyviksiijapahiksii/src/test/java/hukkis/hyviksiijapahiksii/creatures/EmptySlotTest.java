@@ -49,7 +49,7 @@ public class EmptySlotTest {
         assertEquals("Empty", empty.status());
         assertEquals(false, empty.friendly());
         assertEquals("Empty", empty.name());
-         assertEquals("Empty", empty.toString());
+        assertEquals("Empty", empty.toString());
 
     }
 }

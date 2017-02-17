@@ -76,15 +76,6 @@ public class CreatureTest {
     }
 
     @Test
-    public void deadCannotBeHealed() {
-        Creature squire = new Creature("Squire", true);
-        squire.takeDamage(100);
-        squire.heal(60);
-        assertEquals(0, squire.hp());
-        assertEquals("dead", squire.status());
-    }
-
-    @Test
     public void returnValues() {
         Creature squire = new Creature("Squire", true);
         assertEquals(100, squire.maxhp());

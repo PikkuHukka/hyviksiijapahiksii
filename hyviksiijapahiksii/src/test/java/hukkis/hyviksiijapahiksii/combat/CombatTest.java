@@ -66,5 +66,4 @@ public class CombatTest {
         assertEquals("Apprentice", creatures.get(2).name());
     }
 
-   
 }

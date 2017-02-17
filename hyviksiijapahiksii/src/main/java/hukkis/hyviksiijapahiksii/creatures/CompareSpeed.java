@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Random;
 
 /**
+ * Used to compare units by speed.
  *
  * @author oolli
  */
@@ -16,11 +17,23 @@ public class CompareSpeed implements Comparator<Unit> {
 
     private final Random rand;
 
+    /**
+     * Initiates a new CompareSpeed.
+     *
+     * @param rand adds the random generator to CompareSpeed.
+     */
     public CompareSpeed(Random rand) {
         this.rand = rand;
 
     }
 
+    /**
+     * compares the speed of unit a to unit b.
+     *
+     * @param a first unit.
+     * @param b second unit.
+     *
+     */
     @Override
     public int compare(Unit a, Unit b) {
         int firstSpeed = a.speed() + this.rand.nextInt(10);

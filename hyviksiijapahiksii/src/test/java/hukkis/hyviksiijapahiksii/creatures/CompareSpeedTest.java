@@ -42,9 +42,9 @@ public class CompareSpeedTest {
 
     @Test
     public void speed() {
-        Unit creature1 = new Creature("Squire",true);
-        Unit creature2 = new Creature("Apprentice",true);
-        Unit creature3 = new Creature("Archer",true);
+        Unit creature1 = new Creature("Squire", true);
+        Unit creature2 = new Creature("Apprentice", true);
+        Unit creature3 = new Creature("Archer", true);
         ArrayList<Unit> creatures = new ArrayList();
         creatures.add(creature1);
         creatures.add(creature2);
@@ -52,11 +52,10 @@ public class CompareSpeedTest {
         Random rand = new Random();
         CompareSpeed comparetool = new CompareSpeed(rand);
         creatures.sort(comparetool);
-        
-        assertEquals("Archer",creatures.get(0).name());
-        assertEquals("Squire",creatures.get(1).name());
-        assertEquals("Apprentice",creatures.get(2).name());
-        
-        
+
+        assertEquals("Archer", creatures.get(0).name());
+        assertEquals("Squire", creatures.get(1).name());
+        assertEquals("Apprentice", creatures.get(2).name());
+
     }
 }
