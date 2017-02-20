@@ -1,13 +1,14 @@
 package hukkis.hyviksiijapahiksii.ui;
 
+import hukkis.hyviksiijapahiksii.creatures.Creature;
 import hukkis.hyviksiijapahiksii.creatures.Hero;
+import hukkis.hyviksiijapahiksii.creatures.Unit;
 import hukkis.hyviksiijapahiksii.maingame.GameLogic;
 import hukkis.hyviksiijapahiksii.party.Party;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.*;
@@ -26,8 +27,9 @@ public class MainMenu extends JPanel
     private JFrame frame;
     private JLabel picture;
 
-    /** Setup for main menu window.
-     *
+    /**
+     * Setup for main menu window. Creates pre-made party defined by start
+     * class.
      */
     public MainMenu() {
         super(new BorderLayout());
@@ -45,31 +47,41 @@ public class MainMenu extends JPanel
             rangerButton.setActionCommand(archerString);
 
             JButton startGame = new JButton("New Game");
-            startGame.addActionListener(new ActionListener() {
+            startGame.addActionListener((ActionEvent e) -> {
+                Party playerParty = new Party(true);
+                GameLogic logic = new GameLogic();
+                if (rangerButton.isSelected()) {
+                    Hero hero = new Hero(heroName.getText(), "Ranger");
+                    playerParty.addCreature(hero, 5);
+                    Unit squire1 = new Creature("Squire", true);
+                    Unit squire2 = new Creature("Squire", true);
+                    Unit apprentice = new Creature("Apprentice", true);
+                    playerParty.addCreature(squire1, 0);
+                    playerParty.addCreature(squire2, 2);
+                    playerParty.addCreature(apprentice, 3);
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    
-                    Party playerParty = new Party(true);
+                } else if (warriorButton.isSelected()) {
+                    Hero hero = new Hero(heroName.getText(), "Warrior");
+                    playerParty.addCreature(hero, 0);
+                    Unit squire1 = new Creature("Squire", true);
+                    Unit apprentice = new Creature("Apprentice", true);
+                    Unit archer = new Creature("Archer", true);
+                    playerParty.addCreature(squire1, 2);
+                    playerParty.addCreature(apprentice, 5);
+                    playerParty.addCreature(archer, 3);
 
-                    if (rangerButton.isSelected()) {
-                        Hero hero = new Hero(heroName.getText(), "Ranger");
-                        playerParty.addCreature(hero, 0);
-                    }
-                    if (warriorButton.isSelected()) {
-                        Hero hero = new Hero(heroName.getText(), "Warrior");
-                        playerParty.addCreature(hero, 0);
+                } else if (wizardButton.isSelected()) {
+                    Unit squire1 = new Creature("Squire", true);
+                    Unit squire2 = new Creature("Squire", true);
+                    Unit archer = new Creature("Archer", true);
+                    playerParty.addCreature(squire1, 0);
+                    playerParty.addCreature(squire2, 2);
+                    playerParty.addCreature(archer, 3);
 
-                    }
-                    if (wizardButton.isSelected()) {
-
-                        Hero hero = new Hero(heroName.getText(), "Wizard");
-                        playerParty.addCreature(hero, 0);
-
-                    }
-
-                    GameLogic gameLogic = new GameLogic(playerParty);
+                    Hero hero = new Hero(heroName.getText(), "Wizard");
+                    playerParty.addCreature(hero, 5);
                 }
+                logic.startPartyMenu(playerParty);
 
             });
 
@@ -121,26 +133,20 @@ public class MainMenu extends JPanel
     public void createFrame() {
 
         this.frame = new JFrame("Hyviksii ja Pahiksii");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JComponent newContentPane = new MainMenu();
-        newContentPane.setOpaque(true); //content panes must be opaque
+        newContentPane.setOpaque(true);
         this.frame.setContentPane(newContentPane);
 
         this.frame.pack();
         this.frame.setVisible(true);
     }
 
-    /** Can be used to close the main menu.
-     *
-     */
-    public void closeMainMenu() {
-        this.frame.setVisible(false);
-        this.frame.dispose();
-    }
-
     /**
      * Main user interface.
+     *
+     *
      */
     public void mainMenuFrame() {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

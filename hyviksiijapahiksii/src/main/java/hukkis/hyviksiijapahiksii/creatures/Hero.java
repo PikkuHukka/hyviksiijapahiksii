@@ -22,6 +22,7 @@ public class Hero implements Unit, Comparable<Unit> {
     private int speed;
     private String status;
     private Random rand;
+    private final String heroName;
 
     /**
      * Hero is a unique unit used by the player. Can be considered the leader of
@@ -59,10 +60,10 @@ public class Hero implements Unit, Comparable<Unit> {
                 this.speed = 30;
                 break;
         }
-        this.name = name;
+        this.name = type;
+        this.heroName = name;
         this.hp = this.maxhp;
         this.status = "alive";
-
     }
 
     /**
@@ -79,7 +80,6 @@ public class Hero implements Unit, Comparable<Unit> {
         } else {
             this.hp -= hit;
         }
-
     }
 
     /**

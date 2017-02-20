@@ -9,9 +9,10 @@ import hukkis.hyviksiijapahiksii.combat.Combat;
 import hukkis.hyviksiijapahiksii.creatures.Creature;
 import hukkis.hyviksiijapahiksii.creatures.Hero;
 import hukkis.hyviksiijapahiksii.creatures.Unit;
+import hukkis.hyviksiijapahiksii.party.EnemyPartyGenerator;
 import hukkis.hyviksiijapahiksii.party.Party;
 import hukkis.hyviksiijapahiksii.ui.MainMenu;
-import hukkis.hyviksiijapahiksii.ui.PartyMenu;
+import hukkis.hyviksiijapahiksii.ui.CombatMenu;
 import java.util.*;
 
 /**
@@ -21,30 +22,30 @@ import java.util.*;
  */
 public class GameLogic {
 
-    private Party playerParty;
     private Random rand;
 
     /**
      * Just to add the scanner and the random class.
      *
-     * @param party brings party from main menu.
-     * 
+     *
      */
-    public GameLogic(Party party) {
+    public GameLogic() {
         this.rand = new Random();
-        this.playerParty = party;
-        startPartyMenu();
     }
 
     /**
-     * Start a new game.
+     * Add creatures to the party
      *
+     * @param playerParty
      */
-    public void startPartyMenu() {
+    public void startPartyMenu(Party playerParty) {
+        EnemyPartyGenerator generator = new EnemyPartyGenerator(this.rand);
+        Party enemyParty = generator.createParty();
+      //  enemyParty.printTeam();
+       // playerParty.printTeam();
+        
+        CombatMenu combatMenuFrame = new CombatMenu(playerParty, enemyParty);
+        combatMenuFrame.combatMenuFrame();
 
-        System.out.println(this.playerParty.creature(0));
-        PartyMenu partyMenu = new PartyMenu();
-        partyMenu.createFrame();
     }
-
 }

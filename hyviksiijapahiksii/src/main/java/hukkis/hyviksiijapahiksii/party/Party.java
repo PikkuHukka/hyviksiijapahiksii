@@ -100,7 +100,8 @@ public class Party {
     }
 
     /**
-     * Returns the party alignment, whether it is controlled by player or the AI.
+     * Returns the party alignment, whether it is controlled by player or the
+     * AI.
      *
      * @return boolean true or false
      */
