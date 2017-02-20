@@ -9,5 +9,4 @@ Fantasia RPG- tyylinen taistelu jossa molemmilla osapuolilla on 6 hahmopaikkaa, 
 
 [pit-raportti](https://github.com/PikkuHukka/hyviksiijapahiksii/tree/master/dokumentaatio/pit-raportti/201702172354/index.html)
 
-//En ehtinyt korjata checkstyleä javadocin lisäämisen jälkeen, joten erroreita on paljon.  
-[checkstyle-raportti](https://github.com/PikkuHukka/hyviksiijapahiksii/tree/master/dokumentaatio/Checkstyle-raportti)
+[checkstyle-raportti](https://htmlpreview.github.io/?https://github.com/PikkuHukka/hyviksiijapahiksii/blob/master/dokumentaatio/Checkstyle-raportti/checkstyle.html)
