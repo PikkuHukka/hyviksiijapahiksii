@@ -24,6 +24,7 @@ public class Combat {
     private final Random rand;
     private Party enemy;
     private final Scanner scan;
+    private ArrayList<Unit> turnList;
 
     /**
      * Starts a new combat with player party and enemy party.
@@ -64,32 +65,29 @@ public class Combat {
      * @return the new list that contains both sorted by speed.
      */
     public List determineTurns(Party player, Party enemy) {
-        List turnList = new ArrayList<>();
+        this.turnList = new ArrayList<>();
         for (int i = 0; i <= 5; i++) {
-            turnList.add(player.creature(i));
+            this.turnList.add(player.creature(i));
         }
         for (int i = 0; i <= 5; i++) {
-            turnList.add(enemy.creature(i));
+            this.turnList.add(enemy.creature(i));
         }
         CompareSpeed compareTool = new CompareSpeed(this.rand);
-        turnList.sort(compareTool);
-        return turnList;
+        this.turnList.sort(compareTool);
+        return this.turnList;
 
     }
 
-    /** This loop will go on until either the player team, or the enemy team is dead.
-     * 
+    /**
+     * This loop will go on until either the player team, or the enemy team is
+     * dead.
+     *
      *
      */
     public void combatLoop() {
 
         while (this.end == false) {
             List<Unit> list = determineTurns(this.player, this.enemy);
-            System.out.println(list);
-            System.out.println("");
-            this.player.printTeam();
-            System.out.println("");
-            this.enemy.printTeam();
 
             for (int i = 0; i < 12; i++) {
 
@@ -124,22 +122,27 @@ public class Combat {
 
                 int target = scan.nextInt();
 
-                //Jos vastustaja on hengissä niin hyökätään
-                if (enemy.creature(target).status().equals("alive")) {
-                    int extraDamage = unit.attack() + this.rand.nextInt(6);
-                    System.out.println("Your " + unit.name() + " attacks and deals " + extraDamage);
-                    this.enemy.creature(target).takeDamage(extraDamage);
-                    turnSuccesful = true;
-                    System.out.println("POW!");
-
-                } else {
-                    System.out.println("No such target.");
-
-                }
+                turnSuccesful = playerUnitHit(target, unit, turnSuccesful);
             }
 
         }
 
+    }
+
+    public boolean playerUnitHit(int target, Unit unit, boolean turnSuccesful) {
+        //Jos vastustaja on hengissä niin hyökätään
+        if (enemy.creature(target).status().equals("alive")) {
+            int extraDamage = unit.attack() + this.rand.nextInt(6);
+            System.out.println("Your " + unit.name() + " attacks and deals " + extraDamage);
+            this.enemy.creature(target).takeDamage(extraDamage);
+            turnSuccesful = true;
+            System.out.println("POW!");
+
+        } else {
+            System.out.println("No such target.");
+
+        }
+        return turnSuccesful;
     }
 
     /**
@@ -158,7 +161,6 @@ public class Combat {
 
             //Etsitään mahdollinen hyökkäyskohde ( Alkeellinen tekoäly)
             for (int target = 0; target <= 5; target++) {
-                System.out.println("hei");
                 //jos vastustajaan voi hyökätä, hyökkää, muuten hyökkää toiseen
                 if (player.creature(target).status().equals("alive")) {
                     int extraDamage = unit.attack() + this.rand.nextInt(6);
@@ -192,6 +194,10 @@ public class Combat {
         } else {
             return false;
         }
+    }
+
+    public ArrayList<Unit> getList(int i) {
+        return this.turnList;
     }
 
 }

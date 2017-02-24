@@ -14,6 +14,8 @@ import hukkis.hyviksiijapahiksii.party.Party;
 import hukkis.hyviksiijapahiksii.ui.MainMenu;
 import hukkis.hyviksiijapahiksii.ui.CombatMenu;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Basic game logic class.
@@ -22,7 +24,10 @@ import java.util.*;
  */
 public class GameLogic {
 
-    private Random rand;
+    private final Random rand;
+    private PartyMaker partyMaker;
+    private Party playerParty;
+    private Scanner scan;
 
     /**
      * Just to add the scanner and the random class.
@@ -31,6 +36,8 @@ public class GameLogic {
      */
     public GameLogic() {
         this.rand = new Random();
+        this.partyMaker = new PartyMaker();
+        this.scan = new Scanner(System.in);
     }
 
     /**
@@ -38,14 +45,31 @@ public class GameLogic {
      *
      * @param playerParty
      */
-    public void startPartyMenu(Party playerParty) {
+    public void startCombatMenu() {
         EnemyPartyGenerator generator = new EnemyPartyGenerator(this.rand);
         Party enemyParty = generator.createParty();
-      //  enemyParty.printTeam();
-       // playerParty.printTeam();
         
-        CombatMenu combatMenuFrame = new CombatMenu(playerParty, enemyParty);
-        combatMenuFrame.combatMenuFrame();
+        Combat combat = new Combat(this.rand, this.scan);
+        CombatMenu combatMenuFrame = new CombatMenu(combat, playerParty, enemyParty);
+        combatMenuFrame.run(combat, playerParty, enemyParty);
+        
+        
+     
 
+    }
+
+    public void createWarriorParty(String heroName) {
+        this.playerParty = new Party(true);
+        this.playerParty = this.partyMaker.createWarriorParty(playerParty, heroName);
+    }
+
+    public void createRangerParty(String heroName) {
+        this.playerParty = new Party(true);
+        this.playerParty = this.partyMaker.createRangerParty(playerParty, heroName);
+    }
+
+    public void createWizardParty(String heroName) {
+        this.playerParty = new Party(true);
+        this.playerParty = this.partyMaker.createWizardParty(playerParty, heroName);
     }
 }

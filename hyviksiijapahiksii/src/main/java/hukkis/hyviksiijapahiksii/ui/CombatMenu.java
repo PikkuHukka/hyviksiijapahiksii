@@ -1,108 +1,173 @@
 package hukkis.hyviksiijapahiksii.ui;
 
-import hukkis.hyviksiijapahiksii.creatures.Hero;
+import hukkis.hyviksiijapahiksii.combat.Combat;
+import hukkis.hyviksiijapahiksii.creatures.Unit;
 import hukkis.hyviksiijapahiksii.party.Party;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageInputStream;
-import javax.swing.*;
+import java.util.List;
+import javax.swing.ImageIcon;
 
-/**
- * Creates window for the party management.
- *
- * @author oolli
- */
-public class CombatMenu extends JPanel {
+public class CombatMenu extends javax.swing.JFrame {
 
-    private Party playerParty;
-    JFrame frame;
-    JLabel picture;
     private Party enemyParty;
+    private Party playerParty;
+    private Combat combat;
+    private List<Unit> turns;
 
-    /**
-     * Setup for party window.
-     * @param playerParty
-     * @param enemyParty
-     */
-    public CombatMenu(Party playerParty, Party enemyParty) {
+    public CombatMenu(Combat combat, Party playerParty, Party enemyParty) {
         this.playerParty = playerParty;
         this.enemyParty = enemyParty;
-        JPanel content = new JPanel(new GridLayout(4, 1, 1, 1));
-        JPanel playerPanel = new JPanel(new GridLayout(2, 3, 1, 1));
-        JPanel enemyPanel = new JPanel(new GridLayout(2, 3, 1, 1));
+        this.combat = combat;
+        initComponents();
+    }
 
-        for (int i = 0; i <= 5; i++) {
-            JButton button = new JButton();
-            button.setPreferredSize(new Dimension(150, 150));
-            try {
-                Image img = ImageIO.read(new FileImageInputStream(new File("src/main/java/hukkis/hyviksiijapahiksii/images/"
-                        + this.playerParty.creature(i).name()
-                        + ".png")));
+    private void initComponents() {
 
-                button.setIcon(new ImageIcon(img));
-                playerPanel.add(button);
+        enemyButton0 = new javax.swing.JButton();
+        enemyButton3 = new javax.swing.JButton();
+        playerButton0 = new javax.swing.JButton();
+        playerButton3 = new javax.swing.JButton();
+        enemyButton1 = new javax.swing.JButton();
+        enemyButton2 = new javax.swing.JButton();
+        enemyButton4 = new javax.swing.JButton();
+        enemyButton5 = new javax.swing.JButton();
+        playerButton1 = new javax.swing.JButton();
+        playerButton2 = new javax.swing.JButton();
+        playerButton4 = new javax.swing.JButton();
+        playerButton5 = new javax.swing.JButton();
+        nextBattle = new javax.swing.JButton("New Battle");
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
-        }
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
 
-        for (int i = 0; i <= 5; i++) {
-            JButton button = new JButton();
-            button.setPreferredSize(new Dimension(150, 150));
+        enemyButton0.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(0).name() + ".png"));
+        
+        enemyButton1.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(1).name() + ".png"));
 
-            try {
-                Image img = ImageIO.read(new FileImageInputStream(new File("src/main/java/hukkis/hyviksiijapahiksii/images/"
-                        + this.enemyParty.creature(i).name()
-                        + ".png")));
-                button.setIcon(new ImageIcon(img));
+        enemyButton2.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(2).name() + ".png"));
 
-                enemyPanel.add(button);
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
-        }
-   
-     
-        content.add(playerPanel);
-        content.add(enemyPanel);
-        add(content);
+        enemyButton3.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(3).name() + ".png"));
 
+        enemyButton4.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(4).name() + ".png"));
+
+        enemyButton5.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(5).name() + ".png"));
+
+        playerButton0.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(0).name() + ".png"));
+
+        playerButton1.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(1).name() + ".png"));
+
+        playerButton2.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(2).name() + ".png"));
+
+        playerButton3.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(3).name() + ".png"));
+
+        playerButton4.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(4).name() + ".png"));
+
+        playerButton5.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(5).name() + ".png"));
+
+        nextBattle.addActionListener((java.awt.event.ActionEvent evt) -> {
+            combat.newCombat(playerParty, enemyParty);
+            
+        });
+
+        jTextArea1.setColumns(15);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(playerButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(playerButton0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(enemyButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addComponent(enemyButton0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(enemyButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addComponent(enemyButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(playerButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(playerButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(enemyButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addComponent(enemyButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(playerButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(playerButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(nextBattle, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                        )));
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(enemyButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                                .addComponent(enemyButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(enemyButton0, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(enemyButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                                .addComponent(enemyButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(enemyButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 37, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(playerButton0, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(playerButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(playerButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(playerButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(playerButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(playerButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(nextBattle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())
+                        )));
+
+        pack();
+    }// </editor-fold>                           
+
+    private void playerButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
     }
 
     /**
-     * Creates combat frame.
-     *
+     * @param args the command line arguments
      */
-    public void createFrame() {
+    public void run(Combat combat, Party playerParty, Party enemyParty) {
 
-        this.frame = new JFrame("Uusi Ikkuna");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JComponent newContentPane = new CombatMenu(this.playerParty, this.enemyParty);
-        newContentPane.setOpaque(true);
-        this.frame.setContentPane(newContentPane);
-
-        this.frame.pack();
-        this.frame.setVisible(true);
-
-    }
-
-    public void combatMenuFrame() {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
-                createFrame();
-
+                new CombatMenu(combat, playerParty, enemyParty).setVisible(true);
             }
         });
     }
 
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton enemyButton0;
+    private javax.swing.JButton enemyButton1;
+    private javax.swing.JButton enemyButton2;
+    private javax.swing.JButton enemyButton3;
+    private javax.swing.JButton enemyButton4;
+    private javax.swing.JButton enemyButton5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton playerButton0;
+    private javax.swing.JButton playerButton1;
+    private javax.swing.JButton playerButton2;
+    private javax.swing.JButton playerButton3;
+    private javax.swing.JButton playerButton4;
+    private javax.swing.JButton playerButton5;
+    private javax.swing.JButton nextBattle;
+    // End of variables declaration                   
 }

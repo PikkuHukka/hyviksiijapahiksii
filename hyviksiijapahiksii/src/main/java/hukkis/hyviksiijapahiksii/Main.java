@@ -28,11 +28,11 @@ public class Main {
      * @throws java.io.IOException Required for swing utilities.
      */
     public static void main(String[] args) throws IOException {
-      
-        
-        MainMenu mainMenu = new MainMenu();
-        mainMenu.mainMenuFrame();
 
+        GameLogic logic = new GameLogic();
+        MainMenu menu = new MainMenu(logic);
+        menu.run(logic);
+        
     }
 
 }

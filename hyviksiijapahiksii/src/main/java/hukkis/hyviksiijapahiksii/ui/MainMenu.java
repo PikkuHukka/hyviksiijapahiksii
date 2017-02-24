@@ -1,160 +1,194 @@
 package hukkis.hyviksiijapahiksii.ui;
 
-import hukkis.hyviksiijapahiksii.creatures.Creature;
-import hukkis.hyviksiijapahiksii.creatures.Hero;
-import hukkis.hyviksiijapahiksii.creatures.Unit;
 import hukkis.hyviksiijapahiksii.maingame.GameLogic;
-import hukkis.hyviksiijapahiksii.party.Party;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.*;
+import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
 import javax.swing.*;
 
 /**
  * Main menu for the game. Used to determine starting hero.
  *
  */
-public class MainMenu extends JPanel
-        implements ActionListener {
+public class MainMenu extends javax.swing.JFrame {
 
-    static String warriorString = "Warrior";
-    static String wizardString = "Wizard";
-    static String archerString = "Ranger";
-    private JFrame frame;
-    private JLabel picture;
+    private GameLogic logic;
 
     /**
      * Setup for main menu window. Creates pre-made party defined by start
      * class.
+     *
+     * @param logic
      */
-    public MainMenu() {
-        super(new BorderLayout());
-        try {
-            JTextField heroName = new JTextField();
+    public MainMenu(GameLogic logic) {
+        this.logic = logic;
+        initComponents();
+    }
 
-            JRadioButton warriorButton = new JRadioButton(warriorString);
-            warriorButton.setActionCommand(warriorString);
-            warriorButton.setSelected(true);
+    private void initComponents() {
 
-            JRadioButton wizardButton = new JRadioButton(wizardString);
-            wizardButton.setActionCommand(wizardString);
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        warriorButton = new javax.swing.JRadioButton();
+        rangerButton = new javax.swing.JRadioButton();
+        wizardButton = new javax.swing.JRadioButton();
+        classPicture = new javax.swing.JLabel();
+        characterSelectionScreenText = new javax.swing.JLabel();
+        chooseClassText = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextField = new javax.swing.JTextField();
+        chooseCharacterNameText = new javax.swing.JLabel();
+        startGameText = new javax.swing.JButton();
 
-            JRadioButton rangerButton = new JRadioButton(archerString);
-            rangerButton.setActionCommand(archerString);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
 
-            JButton startGame = new JButton("New Game");
-            startGame.addActionListener((ActionEvent e) -> {
-                Party playerParty = new Party(true);
-                GameLogic logic = new GameLogic();
-                if (rangerButton.isSelected()) {
-                    Hero hero = new Hero(heroName.getText(), "Ranger");
-                    playerParty.addCreature(hero, 5);
-                    Unit squire1 = new Creature("Squire", true);
-                    Unit squire2 = new Creature("Squire", true);
-                    Unit apprentice = new Creature("Apprentice", true);
-                    playerParty.addCreature(squire1, 0);
-                    playerParty.addCreature(squire2, 2);
-                    playerParty.addCreature(apprentice, 3);
+        buttonGroup1.add(warriorButton);
+        warriorButton.setSelected(true);
+        warriorButton.setText("Warrior");
+        warriorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                warriorButtonActionPerformed(evt);
+            }
+        });
+        buttonGroup1.add(rangerButton);
+        rangerButton.setText("Ranger");
+        rangerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rangerButtonActionPerformed(evt);
+            }
+        });
 
-                } else if (warriorButton.isSelected()) {
-                    Hero hero = new Hero(heroName.getText(), "Warrior");
-                    playerParty.addCreature(hero, 0);
-                    Unit squire1 = new Creature("Squire", true);
-                    Unit apprentice = new Creature("Apprentice", true);
-                    Unit archer = new Creature("Archer", true);
-                    playerParty.addCreature(squire1, 2);
-                    playerParty.addCreature(apprentice, 5);
-                    playerParty.addCreature(archer, 3);
+        buttonGroup1.add(wizardButton);
+        wizardButton.setText("Wizard");
+        wizardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                wizardButtonActionPerformed(evt);
+            }
+        });
+        classPicture.setIcon(new ImageIcon("src/main/resources/images/Warrior.png"));
 
-                } else if (wizardButton.isSelected()) {
-                    Unit squire1 = new Creature("Squire", true);
-                    Unit squire2 = new Creature("Squire", true);
-                    Unit archer = new Creature("Archer", true);
-                    playerParty.addCreature(squire1, 0);
-                    playerParty.addCreature(squire2, 2);
-                    playerParty.addCreature(archer, 3);
+        characterSelectionScreenText.setText("Character Selection Sreen");
 
-                    Hero hero = new Hero(heroName.getText(), "Wizard");
-                    playerParty.addCreature(hero, 5);
-                }
-                logic.startPartyMenu(playerParty);
+        chooseClassText.setText("Choose a class");
 
-            });
+        jScrollPane1.setViewportView(jTextField);
 
-            ButtonGroup group = new ButtonGroup();
-            group.add(warriorButton);
-            group.add(wizardButton);
-            group.add(rangerButton);
+        chooseCharacterNameText.setText("Character name");
 
-            warriorButton.addActionListener(this);
-            wizardButton.addActionListener(this);
-            rangerButton.addActionListener(this);
+        startGameText.setText("Start game");
+        startGameText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-            BufferedImage myPicture = ImageIO.read(new File("src/main/java/hukkis/hyviksiijapahiksii/images/Warrior.png"));
-            picture = new JLabel(new ImageIcon(myPicture));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(warriorButton)
+                                                .addComponent(wizardButton)
+                                                .addComponent(chooseClassText)
+                                                .addComponent(startGameText)
+                                                .addComponent(rangerButton))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(classPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addGap(98, 98, 98)
+                                                        .addComponent(characterSelectionScreenText))
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addContainerGap()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(chooseCharacterNameText))))
+                                        .addGap(0, 232, Short.MAX_VALUE)))
+                        .addContainerGap())
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(characterSelectionScreenText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addComponent(chooseCharacterNameText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(chooseClassText)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(warriorButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rangerButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(wizardButton)
+                                        .addGap(33, 33, 33)
+                                        .addComponent(startGameText))
+                                .addComponent(classPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+        );
 
-            picture.setPreferredSize(new Dimension(300, 300));
+        pack();
+    }
 
-            JPanel radioPanel = new JPanel(new GridLayout(0, 1));
-            radioPanel.add(warriorButton);
-            radioPanel.add(wizardButton);
-            radioPanel.add(rangerButton);
+    private void warriorButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        classPicture.setIcon(new ImageIcon("src/main/resources/images/Warrior.png"));
+    }
 
-            add(heroName, BorderLayout.NORTH);
-            add(radioPanel, BorderLayout.LINE_START);
-            add(picture, BorderLayout.CENTER);
-            add(startGame, BorderLayout.SOUTH);
-            setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+    private void rangerButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        classPicture.setIcon(new ImageIcon("src/main/resources/images/Ranger.png"));
+
+    }
+
+    private void wizardButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        classPicture.setIcon(new ImageIcon("src/main/resources/images/Wizard.png"));
+
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+        if (this.warriorButton.isSelected()) {
+            logic.createWarriorParty(this.jTextField.getText());
+
         }
+        if (this.rangerButton.isSelected()) {
+            logic.createRangerParty(this.jTextField.getText());
+
+        }
+        if (this.wizardButton.isSelected()) {
+            logic.createWizardParty(this.jTextField.getText());
+
+        }
+        logic.startCombatMenu();
+        
+dispose();
     }
 
-    /**
-     * Changes the picture when another class is clicked.
-     *
-     * @param e Class selected.
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void run(GameLogic logic) {
 
-        picture.setIcon(new ImageIcon("src/main/java/hukkis/hyviksiijapahiksii/images/"
-                + e.getActionCommand()
-                + ".png"));
-    }
-
-    /**
-     * Creates the frame and the pane for it.
-     */
-    public void createFrame() {
-
-        this.frame = new JFrame("Hyviksii ja Pahiksii");
-        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        JComponent newContentPane = new MainMenu();
-        newContentPane.setOpaque(true);
-        this.frame.setContentPane(newContentPane);
-
-        this.frame.pack();
-        this.frame.setVisible(true);
-    }
-
-    /**
-     * Main user interface.
-     *
-     *
-     */
-    public void mainMenuFrame() {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
-                createFrame();
-
+                new MainMenu(logic).setVisible(true);
             }
         });
     }
+
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel classPicture;
+    private javax.swing.JButton startGameText;
+    private javax.swing.JLabel characterSelectionScreenText;
+    private javax.swing.JLabel chooseClassText;
+    private javax.swing.JLabel chooseCharacterNameText;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField;
+    private javax.swing.JRadioButton rangerButton;
+    private javax.swing.JRadioButton warriorButton;
+    private javax.swing.JRadioButton wizardButton;
 }
