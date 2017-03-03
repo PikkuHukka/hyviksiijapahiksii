@@ -18,7 +18,7 @@ import java.util.*;
  */
 public class Combat {
 
-    private boolean end;
+    private boolean flee;
     private Party player;
 
     private final Random rand;
@@ -33,7 +33,7 @@ public class Combat {
      * @param rand adds random to the class.
      */
     public Combat(Random rand, Scanner scan) {
-        this.end = false;
+        this.flee = false;
         this.rand = rand;
         this.scan = scan;
 
@@ -49,12 +49,7 @@ public class Combat {
     public void newCombat(Party player, Party enemy) {
         this.player = player;
         this.enemy = enemy;
-        combatLoop();
-        if (enemy.wiped() == true) {
-            System.out.println("Battle won!");
-        } else {
-            System.out.println("Battle lost!");
-        }
+
     }
 
     /**
@@ -84,53 +79,14 @@ public class Combat {
      *
      *
      */
-    public void combatLoop() {
-
-        while (this.end == false) {
-            List<Unit> list = determineTurns(this.player, this.enemy);
-
-            for (int i = 0; i < 12; i++) {
-
-                if (list.get(i).friendly() == true) {
-                    playerTurn(list.get(i));
-                } else {
-                    enemyTurn(list.get(i));
-                }
-            }
-        }
-
-    }
-
     /**
      * Players creature has the attack turn.
      *
      * @param unit Gives the turn to an enemy unit.
      */
-    public void playerTurn(Unit unit) {
-        //Player party hyökkää
-
-        if (endCombat() == true) {
-            return;
-        }
-        boolean turnSuccesful = false;
-        while (turnSuccesful == false) {
-
-            //jos hahmo on elossa niin
-            if ("alive".equals(unit.status())) {
-                System.out.println(unit.name() + " attacking. " + unit.attack() + " attack");
-                System.out.println("Which enemy do you want to attack? 0-5");
-
-                int target = scan.nextInt();
-
-                turnSuccesful = playerUnitHit(target, unit, turnSuccesful);
-            }
-
-        }
-
-    }
-
-    public boolean playerUnitHit(int target, Unit unit, boolean turnSuccesful) {
+    public boolean playerUnitHit(int target, Unit unit) {
         //Jos vastustaja on hengissä niin hyökätään
+        boolean turnSuccesful = false;
         if (enemy.creature(target).status().equals("alive")) {
             int extraDamage = unit.attack() + this.rand.nextInt(6);
             System.out.println("Your " + unit.name() + " attacks and deals " + extraDamage);
@@ -150,7 +106,7 @@ public class Combat {
      *
      * @param unit Gives the turn to an enemy unit.
      */
-    private void enemyTurn(Unit unit) {
+    public void enemyTurn(Unit unit) {
 
         if (endCombat() == true) {
             return;
@@ -183,12 +139,10 @@ public class Combat {
      * @return true if it does.
      */
     public boolean endCombat() {
-        if (this.player.wiped() == true) {
-            this.end = true;
+        if (this.player.wiped() == true || this.flee == true) {
 
             return true;
         } else if (this.enemy.wiped() == true) {
-            this.end = true;
 
             return true;
         } else {
@@ -200,4 +154,7 @@ public class Combat {
         return this.turnList;
     }
 
+    public void flee() {
+        this.flee = true;
+    }
 }
