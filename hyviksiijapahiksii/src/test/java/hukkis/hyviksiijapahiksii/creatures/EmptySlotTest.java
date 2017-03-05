@@ -41,16 +41,17 @@ public class EmptySlotTest {
     @Test
     public void values() {
         Unit empty = new EmptySlot();
-        assertEquals(-1, empty.attack());
-        assertEquals(-1, empty.reach());
-        assertEquals(-1, empty.hp());
-        assertEquals(-1, empty.maxhp());
-        assertEquals(-1, empty.speed());
-        assertEquals("Empty", empty.status());
-        assertEquals(false, empty.friendly());
-        assertEquals("Empty", empty.name());
+        assertEquals(-1, empty.getAttack());
+        assertEquals(-1, empty.getReach());
+        assertEquals(-1, empty.getHP());
+        assertEquals(-1, empty.getMaxHP());
+        assertEquals(-1, empty.getSpeed());
+        assertEquals("Empty", empty.getStatus());
+        assertEquals(false, empty.getFriendly());
+        assertEquals("Empty", empty.getName());
         assertEquals("Empty", empty.toString());
-
+        empty.takeDamage(0);
+        assertEquals(false, empty.heal(100));
     }
 }
 // TODO add test methods here.

@@ -5,7 +5,6 @@
  */
 package hukkis.hyviksiijapahiksii.combat;
 
-import hukkis.hyviksiijapahiksii.creatures.Creature;
 import hukkis.hyviksiijapahiksii.creatures.Unit;
 import hukkis.hyviksiijapahiksii.creatures.CompareSpeed;
 import hukkis.hyviksiijapahiksii.party.Party;
@@ -80,23 +79,28 @@ public class Combat {
      *
      */
     /**
-     * Players creature has the attack turn.
+     * Players creature will attack the target unit.
      *
+     * @param target in the enemy party, which will be hit.
      * @param unit Gives the turn to an enemy unit.
+     * @return if the hit was successful.
      */
     public boolean playerUnitHit(int target, Unit unit) {
         //Jos vastustaja on hengissä niin hyökätään
         boolean turnSuccesful = false;
-        if (enemy.creature(target).status().equals("alive")) {
-            int extraDamage = unit.attack() + this.rand.nextInt(6);
-            System.out.println("Your " + unit.name() + " attacks and deals " + extraDamage);
-            this.enemy.creature(target).takeDamage(extraDamage);
-            turnSuccesful = true;
-            System.out.println("POW!");
+        if (enemy.creature(target).getStatus().equals("alive")) {
+            if (unit.getReach() == 6) { //Deals damage to every enemy.
+                for (int i = 0; i <= 5; i++) {
+                    int extraDamage = unit.getAttack() + this.rand.nextInt(6);
+                    this.enemy.creature(i).takeDamage(extraDamage);
 
-        } else {
-            System.out.println("No such target.");
+                }
+            } else {    //Deals damage only to the target enemy
+                int extraDamage = unit.getAttack() + this.rand.nextInt(6);
+                this.enemy.creature(target).takeDamage(extraDamage);
 
+            }
+            turnSuccesful = true;   //If the target enemy was a valid target, return true;
         }
         return turnSuccesful;
     }
@@ -113,16 +117,15 @@ public class Combat {
         }
 
         //Jos vastustaja on hengissä, hän hyökkää
-        if ("alive".equals(unit.status())) {
+        if ("alive".equals(unit.getStatus())) {
 
             //Etsitään mahdollinen hyökkäyskohde ( Alkeellinen tekoäly)
             for (int target = 0; target <= 5; target++) {
                 //jos vastustajaan voi hyökätä, hyökkää, muuten hyökkää toiseen
-                if (player.creature(target).status().equals("alive")) {
-                    int extraDamage = unit.attack() + this.rand.nextInt(6);
-                    System.out.println("Enemy " + unit.name() + " attacked and dealt " + extraDamage + " damage");
+                if (player.creature(target).getStatus().equals("alive")) {
+                    int extraDamage = unit.getAttack() + this.rand.nextInt(6);
                     this.player.creature(target).takeDamage(extraDamage);
-                    if (unit.reach() == 1) {
+                    if (unit.getReach() == 1) {
                         break;
                     }
                 }
@@ -139,22 +142,26 @@ public class Combat {
      * @return true if it does.
      */
     public boolean endCombat() {
-        if (this.player.wiped() == true || this.flee == true) {
+        if (this.player.wiped() == true || this.flee == true || this.enemy.wiped() == true) {
 
             return true;
-        } else if (this.enemy.wiped() == true) {
-
-            return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
-    public ArrayList<Unit> getList(int i) {
-        return this.turnList;
-    }
-
+    /**
+     * Is called when player chooses to flee the battle. Ends the battle.
+     */
     public void flee() {
         this.flee = true;
+    }
+
+    /**
+     * Can be used to make sure that the flee option is false at the start of
+     * the combat.
+     */
+    public void notFleeing() {
+        this.flee = false;
     }
 }

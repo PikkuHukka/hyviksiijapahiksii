@@ -25,14 +25,22 @@ public interface Unit {
      *
      * @return the unit health
      */
-    public int hp();
+    public int getHP();
+
+    /**
+     * For healer units.
+     *
+     * @param heal amount.
+     * @return true if the target was available.
+     */
+    public boolean heal(int heal);
 
     /**
      * Used to determine, how much base damage the unit has.
      *
      * @return attack value.
      */
-    public int attack();
+    public int getAttack();
 
     /**
      * Used to make sure that creature health can't be more than the maximum
@@ -40,7 +48,7 @@ public interface Unit {
      *
      * @return max health.
      */
-    public int maxhp();
+    public int getMaxHP();
 
     /**
      * Returns the reach of the creature. 1 For single target and 6 for all
@@ -48,7 +56,7 @@ public interface Unit {
      *
      * @return either 1 or 6.
      */
-    public int reach();
+    public int getReach();
 
     /**
      * Returns the speed of the creature. Determines which creatures attack
@@ -56,14 +64,14 @@ public interface Unit {
      *
      * @return speed value.
      */
-    public int speed();
+    public int getSpeed();
 
     /**
      * Unit can be either dead, alive or dead if the slot is empty.
      *
      * @return dead/alive/empty
      */
-    public String status();
+    public String getStatus();
 
     @Override
     public String toString();
@@ -74,13 +82,13 @@ public interface Unit {
      *
      * @return true or false.
      */
-    public boolean friendly();
+    public boolean getFriendly();
 
     /**
      * Returns the name of the creature. Unique if hero unit.
      *
      * @return name
      */
-    public String name();
+    public String getName();
 
 }

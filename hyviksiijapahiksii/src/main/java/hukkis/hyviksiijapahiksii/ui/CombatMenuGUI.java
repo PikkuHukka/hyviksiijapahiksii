@@ -2,9 +2,19 @@ package hukkis.hyviksiijapahiksii.ui;
 
 import hukkis.hyviksiijapahiksii.combat.Combat;
 import hukkis.hyviksiijapahiksii.creatures.Unit;
+import hukkis.hyviksiijapahiksii.party.EnemyPartyGenerator;
 import hukkis.hyviksiijapahiksii.party.Party;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author oolli
  */
-public class CombatMenu extends javax.swing.JFrame {
+public class CombatMenuGUI extends javax.swing.JFrame {
 
     private Party enemyParty;
     private Party playerParty;
@@ -22,12 +32,13 @@ public class CombatMenu extends javax.swing.JFrame {
     boolean combatEnd;
 
     /**
+     * Combat constructor.
      *
-     * @param combat
-     * @param playerParty
-     * @param enemyParty
+     * @param combat gives the combat to be executed by the GUI.
+     * @param playerParty initiates the playerParty.
+     * @param enemyParty initiates the enemyParty. Will be replaced later.
      */
-    public CombatMenu(Combat combat, Party playerParty, Party enemyParty) {
+    public CombatMenuGUI(Combat combat, Party playerParty, Party enemyParty) {
         this.playerParty = playerParty;
         this.enemyParty = enemyParty;
         this.combat = combat;
@@ -60,16 +71,13 @@ public class CombatMenu extends javax.swing.JFrame {
         playerHP3 = new javax.swing.JFormattedTextField();
         playerHP4 = new javax.swing.JFormattedTextField();
         playerHP5 = new javax.swing.JFormattedTextField();
-        updateHP();
+        updateUI();
         enemyHP0.setEditable(false);
         enemyHP1.setEditable(false);
         enemyHP2.setEditable(false);
         enemyHP3.setEditable(false);
-
         enemyHP4.setEditable(false);
-
         enemyHP5.setEditable(false);
-
         playerHP0.setEditable(false);
         playerHP1.setEditable(false);
         playerHP2.setEditable(false);
@@ -77,29 +85,55 @@ public class CombatMenu extends javax.swing.JFrame {
         playerHP4.setEditable(false);
         playerHP5.setEditable(false);
         nextBattle = new javax.swing.JButton("New Battle");
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextArea1.setEditable(false);
+        combatLogPanel = new javax.swing.JScrollPane();
+        combatLog = new javax.swing.JTextArea(10, 15);
+        combatLog.setEditable(false);
         teamSeparator = new javax.swing.JSeparator();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(650, 520));
         setAlwaysOnTop(true);
 
-        enemyImage0.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(0).name() + ".png"));
-        enemyImage1.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(1).name() + ".png"));
-        enemyImage2.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(2).name() + ".png"));
-        enemyImage3.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(3).name() + ".png"));
-        enemyImage4.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(4).name() + ".png"));
-        enemyImage5.setIcon(new ImageIcon("src/main/resources/images/" + this.enemyParty.creature(5).name() + ".png"));
-        playerImage0.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(0).name() + ".png"));
-        playerImage1.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(1).name() + ".png"));
-        playerImage2.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(2).name() + ".png"));
-        playerImage3.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(3).name() + ".png"));
-        playerImage4.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(4).name() + ".png"));
-        playerImage5.setIcon(new ImageIcon("src/main/resources/images/" + this.playerParty.creature(5).name() + ".png"));
-
+        ArrayList<JLabel> enemyIcons = new ArrayList();
+        enemyIcons.add(this.enemyImage0);
+        enemyIcons.add(this.enemyImage1);
+        enemyIcons.add(this.enemyImage2);
+        enemyIcons.add(this.enemyImage3);
+        enemyIcons.add(this.enemyImage4);
+        enemyIcons.add(this.enemyImage5);
+        for (int i = 0; i <= 5; i++) {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("images/" + this.enemyParty.creature(i).getName() + ".png");
+            BufferedImage bf;
+            try {
+                bf = ImageIO.read(is);
+                enemyIcons.get(i).setIcon(new ImageIcon(bf));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        ArrayList<JLabel> playerIcons = new ArrayList();
+        playerIcons.add(this.playerImage0);
+        playerIcons.add(this.playerImage1);
+        playerIcons.add(this.playerImage2);
+        playerIcons.add(this.playerImage3);
+        playerIcons.add(this.playerImage4);
+        playerIcons.add(this.playerImage5);
+        for (int i = 0; i <= 5; i++) {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("images/" + this.playerParty.creature(i).getName() + ".png");
+            BufferedImage bf;
+            try {
+                bf = ImageIO.read(is);
+                playerIcons.get(i).setIcon(new ImageIcon(bf));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         nextBattle.addActionListener((java.awt.event.ActionEvent evt) -> {
+            EnemyPartyGenerator generator = new EnemyPartyGenerator(new Random());
+            this.enemyParty = new Party(false);
+            this.enemyParty = generator.createParty();
             combat.newCombat(playerParty, enemyParty);
+            combat.notFleeing();
+            updateUI();
             while (combat.endCombat() == false) {
                 this.turns = combat.determineTurns(playerParty, enemyParty);
                 this.turn = 0;
@@ -107,16 +141,13 @@ public class CombatMenu extends javax.swing.JFrame {
                     if (this.combat.endCombat() == true) {
                         break;
                     }
-                    System.out.println("new turn");
                     this.turn();
                 }
             }
         }
         );
 
-        jTextArea1.setColumns(15);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        combatLogPanel.setViewportView(combatLog);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,7 +197,7 @@ public class CombatMenu extends javax.swing.JFrame {
                                 .addComponent(teamSeparator))
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1)
+                                .addComponent(combatLogPanel)
                                 .addComponent(nextBattle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
         );
@@ -174,7 +205,7 @@ public class CombatMenu extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)
+                        .addComponent(combatLogPanel)
                         .addGap(19, 19, 19)
                         .addComponent(nextBattle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -226,58 +257,76 @@ public class CombatMenu extends javax.swing.JFrame {
         pack();
     }
 
-    private void updateHP() {
-        if (!"Empty".equals(this.enemyParty.creature(0).status())) {
-
-            enemyHP0.setText(this.enemyParty.creature(0).hp() + "/" + this.enemyParty.creature(0).maxhp());
+    private void updateUI() {
+        if (!"Empty".equals(this.enemyParty.creature(0).getStatus())) {
+            enemyHP0.setText(this.enemyParty.creature(0).getHP() + "/" + this.enemyParty.creature(0).getMaxHP());
         }
-        if (!"Empty".equals(this.enemyParty.creature(1).status())) {
-            enemyHP1.setText(this.enemyParty.creature(1).hp() + "/" + this.enemyParty.creature(1).maxhp());
+        if (!"Empty".equals(this.enemyParty.creature(1).getStatus())) {
+            enemyHP1.setText(this.enemyParty.creature(1).getHP() + "/" + this.enemyParty.creature(1).getMaxHP());
         }
-        if (!"Empty".equals(this.enemyParty.creature(2).status())) {
-            enemyHP2.setText(this.enemyParty.creature(2).hp() + "/" + this.enemyParty.creature(2).maxhp());
+        if (!"Empty".equals(this.enemyParty.creature(2).getStatus())) {
+            enemyHP2.setText(this.enemyParty.creature(2).getHP() + "/" + this.enemyParty.creature(2).getMaxHP());
         }
-        if (!"Empty".equals(this.enemyParty.creature(3).status())) {
-            enemyHP3.setText(this.enemyParty.creature(3).hp() + "/" + this.enemyParty.creature(3).maxhp());
+        if (!"Empty".equals(this.enemyParty.creature(3).getStatus())) {
+            enemyHP3.setText(this.enemyParty.creature(3).getHP() + "/" + this.enemyParty.creature(3).getMaxHP());
         }
-        if (!"Empty".equals(this.enemyParty.creature(4).status())) {
-            enemyHP4.setText(this.enemyParty.creature(4).hp() + "/" + this.enemyParty.creature(4).maxhp());
+        if (!"Empty".equals(this.enemyParty.creature(4).getStatus())) {
+            enemyHP4.setText(this.enemyParty.creature(4).getHP() + "/" + this.enemyParty.creature(4).getMaxHP());
         }
-        if (!"Empty".equals(this.enemyParty.creature(5).status())) {
-            enemyHP5.setText(this.enemyParty.creature(5).hp() + "/" + this.enemyParty.creature(5).maxhp());
+        if (!"Empty".equals(this.enemyParty.creature(5).getStatus())) {
+            enemyHP5.setText(this.enemyParty.creature(5).getHP() + "/" + this.enemyParty.creature(5).getMaxHP());
         }
-        if (!"Empty".equals(this.playerParty.creature(0).status())) {
-            playerHP0.setText(this.playerParty.creature(0).hp() + "/" + this.playerParty.creature(0).maxhp());
+        if (!"Empty".equals(this.playerParty.creature(0).getStatus())) {
+            playerHP0.setText(this.playerParty.creature(0).getHP() + "/" + this.playerParty.creature(0).getMaxHP());
         }
-        if (!"Empty".equals(this.playerParty.creature(1).status())) {
-            playerHP1.setText(this.playerParty.creature(1).hp() + "/" + this.playerParty.creature(1).maxhp());
+        if (!"Empty".equals(this.playerParty.creature(1).getStatus())) {
+            playerHP1.setText(this.playerParty.creature(1).getHP() + "/" + this.playerParty.creature(1).getMaxHP());
         }
-        if (!"Empty".equals(this.playerParty.creature(2).status())) {
-
-            playerHP2.setText(this.playerParty.creature(2).hp() + "/" + this.playerParty.creature(2).maxhp());
+        if (!"Empty".equals(this.playerParty.creature(2).getStatus())) {
+            playerHP2.setText(this.playerParty.creature(2).getHP() + "/" + this.playerParty.creature(2).getMaxHP());
         }
-        if (!"Empty".equals(this.playerParty.creature(3).status())) {
-            playerHP3.setText(this.playerParty.creature(3).hp() + "/" + this.playerParty.creature(3).maxhp());
+        if (!"Empty".equals(this.playerParty.creature(3).getStatus())) {
+            playerHP3.setText(this.playerParty.creature(3).getHP() + "/" + this.playerParty.creature(3).getMaxHP());
         }
-        if (!"Empty".equals(this.playerParty.creature(4).status())) {
-            playerHP4.setText(this.playerParty.creature(4).hp() + "/" + this.playerParty.creature(4).maxhp());
+        if (!"Empty".equals(this.playerParty.creature(4).getStatus())) {
+            playerHP4.setText(this.playerParty.creature(4).getHP() + "/" + this.playerParty.creature(4).getMaxHP());
         }
 
-        if (!"Empty".equals(this.playerParty.creature(5).status())) {
+        if (!"Empty".equals(this.playerParty.creature(5).getStatus())) {
 
-            playerHP5.setText(this.playerParty.creature(5).hp() + "/" + this.playerParty.creature(5).maxhp());
+            playerHP5.setText(this.playerParty.creature(5).getHP() + "/" + this.playerParty.creature(5).getMaxHP());
+        }
+
+        ArrayList<JLabel> icons = new ArrayList();
+        icons.add(this.enemyImage0);
+        icons.add(this.enemyImage1);
+        icons.add(this.enemyImage2);
+        icons.add(this.enemyImage3);
+        icons.add(this.enemyImage4);
+        icons.add(this.enemyImage5);
+        for (int i = 0; i <= 5; i++) {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("images/" + this.enemyParty.creature(i).getName() + ".png");
+            BufferedImage bf;
+            try {
+                bf = ImageIO.read(is);
+                icons.get(i).setIcon(new ImageIcon(bf));
+            } catch (IOException ex) {
+                Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     /**
-     * @param combat
-     * @param playerParty
-     * @param enemyParty
+     * Runs the combat menu.
+     *
+     * @param combat Gives the combat class to be executed by the UI.
+     * @param playerParty to the constructor.
+     * @param enemyParty to the constructor.
      */
     public void run(Combat combat, Party playerParty, Party enemyParty) {
 
         java.awt.EventQueue.invokeLater(() -> {
-            new CombatMenu(combat, playerParty, enemyParty).setVisible(true);
+            new CombatMenuGUI(combat, playerParty, enemyParty).setVisible(true);
         });
     }
 
@@ -285,16 +334,16 @@ public class CombatMenu extends javax.swing.JFrame {
      * Communicates with combat and updates the UI.
      */
     public void turn() {
-        if ("alive".equals(this.turns.get(turn).status())) {
-            if (this.turns.get(turn).friendly() == false) {
-                this.jTextArea1.append("\nEnemy " + this.turns.get(turn).name() + " attacks!");
+        if ("alive".equals(this.turns.get(turn).getStatus())) {
+            if (this.turns.get(turn).getFriendly() == false) {
+                this.combatLog.append("\nEnemy " + this.turns.get(turn).getName() + " attacks!");
                 this.combat.enemyTurn(this.turns.get(this.turn));
                 this.turn++;
             } else {
 
-                Object[] values = {"0", "1", "2", "3", "4", "5", "Flee from combat."};
+                Object[] values = {"1", "2", "3", "4", "5", "6", "Flee from combat."};
                 int targetWindow = JOptionPane.showOptionDialog(null,
-                        "Select target\n Deals " + this.turns.get(turn).attack() + " damage.\nHits " + this.turns.get(turn).reach() + " targets.", this.turns.get(turn).name(),
+                        "Select target\n Deals " + this.turns.get(turn).getAttack() + " damage.\nHits " + this.turns.get(turn).getReach() + " targets.", this.turns.get(turn).getName(),
                         JOptionPane.PLAIN_MESSAGE,
                         JOptionPane.QUESTION_MESSAGE,
                         null,
@@ -305,15 +354,15 @@ public class CombatMenu extends javax.swing.JFrame {
 
                     if (this.combat.playerUnitHit(targetWindow, this.turns.get(this.turn)) == true) {
 
-                        this.jTextArea1.append("\nYour " + this.turns.get(this.turn).name() + " attacked the\n enemy " + this.enemyParty.creature(targetWindow).name());
+                        this.combatLog.append("\nYour " + this.turns.get(this.turn).getName() + " attacked the\n enemy " + this.enemyParty.creature(targetWindow).getName());
                         turn++;
                     } else {
-                        this.jTextArea1.append("\nInvalid target!");
+                        this.combatLog.append("\nInvalid target!");
                     }
                 } else {
                     this.combat.flee();
                     turn++;
-                    this.jTextArea1.append("\nYou fled the battle!");
+                    this.combatLog.append("\nYou fled the battle!");
                 }
 
             }
@@ -322,7 +371,7 @@ public class CombatMenu extends javax.swing.JFrame {
             turn++;
         }
 
-        this.updateHP();
+        this.updateUI();
     }
 
 // Variables declaration - do not modify                     
@@ -332,8 +381,8 @@ public class CombatMenu extends javax.swing.JFrame {
     private javax.swing.JLabel enemyImage3;
     private javax.swing.JLabel enemyImage4;
     private javax.swing.JLabel enemyImage5;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane combatLogPanel;
+    private javax.swing.JTextArea combatLog;
     private javax.swing.JLabel playerImage0;
     private javax.swing.JLabel playerImage1;
     private javax.swing.JLabel playerImage2;

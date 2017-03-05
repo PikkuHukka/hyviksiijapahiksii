@@ -6,9 +6,11 @@
 package hukkis.hyviksiijapahiksii.party;
 
 import hukkis.hyviksiijapahiksii.creatures.Creature;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * This class generates the party for each enemy party.
  *
  * @author oolli
  */
@@ -16,37 +18,35 @@ public class EnemyPartyGenerator {
 
     private Random rand;
 
+    /**
+     * Gives random to be used for the party size and enemy type.
+     *
+     * @param rand is given from the logic.
+     */
     public EnemyPartyGenerator(Random rand) {
         this.rand = rand;
 
     }
 
+    /**
+     * Generates the party with 1-3 enemies.
+     *
+     * @return the generated party to the combat to be applied.
+     */
     public Party createParty() {
         Party enemyParty = new Party(false);
 
         int enemyCount = (rand.nextInt(3) + 1);
+        ArrayList<String> types = new ArrayList();
+        types.add("Squire");
+        types.add("Apprentice");
+        types.add("Archer");
 
         for (int i = 0; i < enemyCount; i++) {
+
             int enemyType = (rand.nextInt(3));
-            switch (enemyType) {
-                case 0: {
-                    Creature creature = new Creature("Squire", false);
-                    enemyParty.addCreature(creature, i);
-                    break;
-                }
-                case 1: {
-                    Creature creature = new Creature("Apprentice", false);
-                    enemyParty.addCreature(creature, i);
-                    break;
-                }
-                case 2: {
-                    Creature creature = new Creature("Archer", false);
-                    enemyParty.addCreature(creature, i);
-                    break;
-                }
-                default:
-                    break;
-            }
+
+            enemyParty.addCreature(new Creature(types.get(enemyType), false), i);
 
         }
         return enemyParty;

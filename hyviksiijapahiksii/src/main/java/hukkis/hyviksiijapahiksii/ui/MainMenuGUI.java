@@ -1,15 +1,19 @@
 package hukkis.hyviksiijapahiksii.ui;
 
 import hukkis.hyviksiijapahiksii.maingame.GameLogic;
-import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.*;
 
 /**
  * Main menu for the game. Used to determine starting hero.
  *
  */
-public class MainMenu extends javax.swing.JFrame {
+public class MainMenuGUI extends javax.swing.JFrame {
 
     private GameLogic logic;
 
@@ -17,9 +21,9 @@ public class MainMenu extends javax.swing.JFrame {
      * Setup for main menu window. Creates pre-made party defined by start
      * class.
      *
-     * @param logic
+     * @param logic logic will be started after the hero class is selected.
      */
-    public MainMenu(GameLogic logic) {
+    public MainMenuGUI(GameLogic logic) {
         this.logic = logic;
         initComponents();
     }
@@ -64,7 +68,14 @@ public class MainMenu extends javax.swing.JFrame {
                 wizardButtonActionPerformed(evt);
             }
         });
-        classPicture.setIcon(new ImageIcon("src/main/resources/images/Warrior.png"));
+        InputStream is = getClass().getClassLoader().getResourceAsStream("images/Warrior.png");
+        BufferedImage bf;
+        try {
+            bf = ImageIO.read(is);
+            classPicture.setIcon(new ImageIcon(bf));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         characterSelectionScreenText.setText("Character Selection Sreen");
 
@@ -139,16 +150,39 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     private void warriorButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        classPicture.setIcon(new ImageIcon("src/main/resources/images/Warrior.png"));
+        InputStream is = getClass().getClassLoader().getResourceAsStream("images/Warrior.png");
+        BufferedImage bf;
+        try {
+            bf = ImageIO.read(is);
+            classPicture.setIcon(new ImageIcon(bf));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void rangerButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        classPicture.setIcon(new ImageIcon("src/main/resources/images/Ranger.png"));
+        InputStream is = getClass().getClassLoader().getResourceAsStream("images/Ranger.png");
+        BufferedImage bf;
+        try {
+            bf = ImageIO.read(is);
+            classPicture.setIcon(new ImageIcon(bf));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     private void wizardButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        classPicture.setIcon(new ImageIcon("src/main/resources/images/Wizard.png"));
+        InputStream is = getClass().getClassLoader().getResourceAsStream("images/Wizard.png");
+
+        BufferedImage bf;
+        try {
+            bf = ImageIO.read(is);
+            classPicture.setIcon(new ImageIcon(bf));
+        } catch (IOException ex) {
+            Logger.getLogger(MainMenuGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -167,16 +201,19 @@ public class MainMenu extends javax.swing.JFrame {
 
         }
         logic.startCombatMenu();
-        
-dispose();
+
+        dispose();
     }
 
+    /**
+     * Runs the main menu window.
+     *
+     * @param logic will be used when the class is selected.
+     */
     public void run(GameLogic logic) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMenu(logic).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainMenuGUI(logic).setVisible(true);
         });
     }
 

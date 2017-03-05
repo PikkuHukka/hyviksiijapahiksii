@@ -76,8 +76,8 @@ public class PartyTest {
     @Test
     public void partyWiped() {
         Party joukko = new Party(true);
-        Creature jatka = new Creature("Apprentice", true);
-        joukko.addCreature(jatka, 0);
+        Creature creature1 = new Creature("Apprentice", true);
+        joukko.addCreature(creature1, 0);
         assertEquals(false, joukko.wiped());
         joukko.creature(0).takeDamage(50);
         assertEquals(true, joukko.wiped());

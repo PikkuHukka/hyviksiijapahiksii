@@ -86,14 +86,21 @@ public class Hero implements Unit, Comparable<Unit> {
      * Creature takes healing and can't have more health than max health.
      *
      * @param heal amount of healing taken.
+     * @return true if the unit was available for healing. Otherwise returns
+     * false.
      */
-    public void heal(int heal) {
-        if (!this.status.equals("dead") && !this.status.equals("empty")) {
+    @Override
+    public boolean heal(int heal) {
+        if (this.status.equals("dead") || this.maxhp == this.hp) {
+            return false;
+        } else {
+
             if (this.hp + heal >= this.maxhp) {
                 this.hp = maxhp;
             } else {
                 this.hp += heal;
             }
+            return true;
         }
     }
 
@@ -103,7 +110,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return name.
      */
     @Override
-    public String name() {
+    public String getName() {
         return this.name;
     }
 
@@ -113,7 +120,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return health value.
      */
     @Override
-    public int hp() {
+    public int getHP() {
         return this.hp;
     }
 
@@ -123,7 +130,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return attack value.
      */
     @Override
-    public int attack() {
+    public int getAttack() {
         return this.attack;
     }
 
@@ -133,7 +140,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return maxHP value.
      */
     @Override
-    public int maxhp() {
+    public int getMaxHP() {
         return this.maxhp;
     }
 
@@ -143,7 +150,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return reach value.
      */
     @Override
-    public int reach() {
+    public int getReach() {
         return this.reach;
     }
 
@@ -153,7 +160,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return speed value.
      */
     @Override
-    public int speed() {
+    public int getSpeed() {
         return this.speed;
     }
 
@@ -163,7 +170,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return status value. alive / dead
      */
     @Override
-    public String status() {
+    public String getStatus() {
         return this.status;
     }
 
@@ -180,7 +187,7 @@ public class Hero implements Unit, Comparable<Unit> {
      * @return true
      */
     @Override
-    public boolean friendly() {
+    public boolean getFriendly() {
         return true;
     }
 
@@ -193,7 +200,7 @@ public class Hero implements Unit, Comparable<Unit> {
     @Override
     public int compareTo(Unit t) {
         int firstSpeed = this.speed + this.rand.nextInt(10);
-        int secondSpeed = t.speed() + this.rand.nextInt(10);
+        int secondSpeed = t.getSpeed() + this.rand.nextInt(10);
         return firstSpeed - secondSpeed;
     }
 }

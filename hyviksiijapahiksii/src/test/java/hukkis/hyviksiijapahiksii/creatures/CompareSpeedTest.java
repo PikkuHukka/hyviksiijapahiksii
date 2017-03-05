@@ -53,9 +53,9 @@ public class CompareSpeedTest {
         CompareSpeed comparetool = new CompareSpeed(rand);
         creatures.sort(comparetool);
 
-        assertEquals("Archer", creatures.get(0).name());
-        assertEquals("Squire", creatures.get(1).name());
-        assertEquals("Apprentice", creatures.get(2).name());
+        assertEquals("Archer", creatures.get(0).getName());
+        assertEquals("Squire", creatures.get(1).getName());
+        assertEquals("Apprentice", creatures.get(2).getName());
 
     }
 }

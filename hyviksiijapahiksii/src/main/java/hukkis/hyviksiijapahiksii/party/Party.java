@@ -78,24 +78,12 @@ public class Party {
     public boolean wiped() {
 
         for (int i = 0; i <= 5; i++) {
-            if (party[i].status().equals("alive")) {
+            if (party[i].getStatus().equals("alive")) {
                 return false;
             }
 
         }
         return true;
-
-    }
-
-    /**
-     * Prints the team. This method isn't required but it helps to keep track of
-     * the combat
-     *
-     */
-    public void printTeam() {
-        for (int i = 0; i < this.party.length; i++) {
-            System.out.println("Target " + i + ". " + this.party[i].toString());
-        }
 
     }
 

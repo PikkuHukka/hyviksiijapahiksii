@@ -36,8 +36,8 @@ public class CompareSpeed implements Comparator<Unit> {
      */
     @Override
     public int compare(Unit a, Unit b) {
-        int firstSpeed = a.speed() + this.rand.nextInt(10);
-        int secondSpeed = b.speed() + this.rand.nextInt(10);
+        int firstSpeed = a.getSpeed() + this.rand.nextInt(10);
+        int secondSpeed = b.getSpeed() + this.rand.nextInt(10);
         return secondSpeed - firstSpeed;
     }
 

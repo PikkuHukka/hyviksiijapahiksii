@@ -27,7 +27,6 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      * @param hit damage taken.
      */
     public void takeDamage(int hit) {
-        System.out.println("Empty slot.");
 
     }
 
@@ -37,7 +36,7 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      *
      * @return empty because empty slot has no name.
      */
-    public String name() {
+    public String getName() {
         return "Empty";
     }
 
@@ -47,7 +46,7 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      * @return -1 , but this will not be called in normal circumstances.
      */
     @Override
-    public int hp() {
+    public int getHP() {
         return -1;
     }
 
@@ -57,7 +56,7 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      * @return -1 , but this will not be called in normal circumstances.
      */
     @Override
-    public int attack() {
+    public int getAttack() {
         return -1;
     }
 
@@ -67,7 +66,7 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      * @return -1 , but this will not be called in normal circumstances.
      */
     @Override
-    public int maxhp() {
+    public int getMaxHP() {
         return -1;
     }
 
@@ -77,7 +76,7 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      * @return -1 , but this will not be called in normal circumstances.
      */
     @Override
-    public int reach() {
+    public int getReach() {
         return -1;
     }
 
@@ -87,7 +86,7 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      * @return -1 , but this will not be called in normal circumstances.
      */
     @Override
-    public int speed() {
+    public int getSpeed() {
         return -1;
     }
 
@@ -99,7 +98,7 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      *
      */
     @Override
-    public String status() {
+    public String getStatus() {
         return "Empty";
     }
 
@@ -131,8 +130,20 @@ public class EmptySlot implements Unit, Comparable<Unit> {
      * @return Empty slots are considered unfriendly to make combat code easier.
      */
     @Override
-    public boolean friendly() {
+    public boolean getFriendly() {
         return false;
+    }
+
+    /**
+     * Empty slots won't be healed.
+     *
+     * @param heal amount of healing taken.
+     * @return always returns false, because empty slots can't be healed. false.
+     */
+    @Override
+    public boolean heal(int heal) {
+        return false;
+
     }
 
 }

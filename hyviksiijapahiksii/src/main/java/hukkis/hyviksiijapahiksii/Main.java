@@ -5,10 +5,9 @@
  */
 package hukkis.hyviksiijapahiksii;
 
-import hukkis.hyviksiijapahiksii.creatures.Hero;
 import hukkis.hyviksiijapahiksii.maingame.GameLogic;
 import hukkis.hyviksiijapahiksii.party.Party;
-import hukkis.hyviksiijapahiksii.ui.MainMenu;
+import hukkis.hyviksiijapahiksii.ui.MainMenuGUI;
 import java.io.IOException;
 import java.util.Random;
 
@@ -30,9 +29,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         GameLogic logic = new GameLogic();
-        MainMenu menu = new MainMenu(logic);
+        MainMenuGUI menu = new MainMenuGUI(logic);
         menu.run(logic);
-        
+
     }
 
 }

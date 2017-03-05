@@ -11,11 +11,22 @@ import hukkis.hyviksiijapahiksii.creatures.Unit;
 import hukkis.hyviksiijapahiksii.party.Party;
 
 /**
+ * This class is used to create a party for the player.
+ * Parties can later be customised.
  *
  * @author oolli
  */
-public class PartyMaker {
+public class PlayerPartyGenerator {
 
+    /**
+     * Returns the new wizard party.
+     *
+     * @param playerParty the party, which the creatures and the hero will be
+     * added to.
+     * @param heroName gives the party leader name.
+     * @return the created party.
+     *
+     */
     public Party createWizardParty(Party playerParty, String heroName) {
         Hero hero = new Hero(heroName, "Wizard");
         playerParty.addCreature(hero, 5);
@@ -28,6 +39,14 @@ public class PartyMaker {
         return playerParty;
     }
 
+    /**
+     * Returns the new warrior party.
+     *
+     * @param playerParty the party, which the creatures and the hero will be
+     * added to.
+     * @param heroName gives the party leader name.
+     * @return the created party.
+     */
     public Party createWarriorParty(Party playerParty, String heroName) {
         Hero hero = new Hero(heroName, "Warrior");
         playerParty.addCreature(hero, 0);
@@ -40,6 +59,14 @@ public class PartyMaker {
         return playerParty;
     }
 
+    /**
+     * Returns the new ranger party.
+     *
+     * @param playerParty the party, which the creatures and the hero will be
+     * added to.
+     * @param heroName gives the party leader name.
+     * @return the created party.
+     */
     public Party createRangerParty(Party playerParty, String heroName) {
         Unit squire1 = new Creature("Squire", true);
         Unit squire2 = new Creature("Squire", true);
