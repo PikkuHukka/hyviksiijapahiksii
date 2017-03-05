@@ -11,3 +11,7 @@ Luokkakaavio
 Pelin sekvenssikaavio.
 
 ![Sekvenssikaavio](https://github.com/PikkuHukka/hyviksiijapahiksii/blob/master/dokumentaatio/sekvenssiKaavio.png)
+
+Tarkennettu sekvenssikaavio taistelusta.
+
+![Combat Sekvenssikaavio](https://github.com/PikkuHukka/hyviksiijapahiksii/blob/master/dokumentaatio/combatSekvenssiKaavio.png)
