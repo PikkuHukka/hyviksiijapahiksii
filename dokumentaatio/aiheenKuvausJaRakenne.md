@@ -1,5 +1,9 @@
 Hyviksii ja pahiksii on peli, jossa on 6 hahmopaikkaa molemmilla joukkueilla ja yritetään voittaa mahdollisimman monta bottijoukkuetta, jotka generoituvat automaattisesti. 
 
+
+MainMenuGUI luokan suorituksen jälkeen, sitä ei enää tarvita joten suoritus annetaan Logicille ja sen jälkeen CombatMenuGUI:lle. CombatMenuGUI jatkaa ohjelman suoritusta loppuun.
+Ohjelmassa käyttöliittymäluokalla CombatMenuGUI on tällä hetkellä liikaa tehtäviä yhdelle luokalle.
+
 Luokkakaavio
 
 ![Luokkakaavio](https://github.com/PikkuHukka/hyviksiijapahiksii/blob/master/dokumentaatio/loppuVaiheenLuokkakaavio.png)
