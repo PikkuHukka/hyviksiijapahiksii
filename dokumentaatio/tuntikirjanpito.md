@@ -5,6 +5,7 @@ Päivä | Tunnit | Kuvaus
 10.02.2017 | 7h | Testien tekeminen ja koodin parantaminen  
 15.02.2017 | 4h | UI:n tekeminen  
 16.02.2017 | 3h | UI:n tekeminen  
+<<<<<<< HEAD
 17.02.2017 | 5h | UI:n tekeminen  
 21.02.2017 | 4h | UI:n tekeminen  
 21.02.2017 | 6h | UI:n tekeminen  
@@ -14,3 +15,6 @@ Päivä | Tunnit | Kuvaus
 3.03.2017  | 10h| Pelin saaminen pelattavaan kuntoon  
 4.03.2017  | 12h| Bugien korjaaminen ja kaatumisen estäminen + testejen kattavuus  
 5.03.2017  | 12h| Dokumentointi, diagrammit ja testit loppupalautukseen  
+=======
+
+
